@@ -1,0 +1,1 @@
+/home/yoyoki/.zshrc

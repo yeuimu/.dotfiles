@@ -1,0 +1,38 @@
+#! /bin/sh
+pgrep -x sxhkd > /dev/null || sxhkd &
+picom --experimental-backends --config ~/.config/picom/picom.conf &
+# fcitx5 &
+
+xrandr_output=$(bspc query -M --names)
+if echo "$xrandr_output" | grep -q "HDMI-A-0" || "$xrandr_output" | grep -q "center";then
+	echo "Xft.dpi: 120" | xrdb -merge
+	echo "Xcursor.size: 50" | xrdb -merge
+	echo "Xcursor.theme: Nordzy-cursors" | xrdb -merge
+	feh --bg-center ~/.config/feh/monitor.jpg & # wallpaper
+	xrandr --output HDMI-A-0 --primary
+	xrandr --output eDP --right-of HDMI-A-0
+	xrandr --output eDP --off
+	bspc monitor HDMI-A-0 -n center
+	bspc monitor eDP -n right
+	bspc monitor center -d 1 2 3 4 5
+	# bspc monitor right -d 6 7 8
+else
+	echo "Xft.dpi: 180" | xrdb -merge
+	echo "Xcursor.size: 70" | xrdb -merge
+	echo "Xcursor.theme: Nordzy-cursors" | xrdb -merge
+	feh --bg-center ~/.config/feh/note.jpg &
+	bspc monitor -d 1 2 3 4 5 6 7 8 9 10
+fi
+
+bspc config border_width         1
+bspc config window_gap           25
+
+bspc config split_ratio          0.52
+bspc config borderless_monocle   true
+bspc config gapless_monocle      true
+
+bspc rule -a Gimp desktop='^8' state=floating follow=on
+bspc rule -a Chromium desktop='^2'
+bspc rule -a mplayer2 state=floating
+bspc rule -a Kupfer.py focus=on
+bspc rule -a Screenkey manage=off
