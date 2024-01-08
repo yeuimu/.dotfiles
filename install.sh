@@ -45,6 +45,16 @@ install $home_dir/.config/sxhkd $curent_dir/sxhkd
 install $home_dir/.config/rofi $curent_dir/rofi
 install $home_dir/.config/alacritty $curent_dir/alacritty
 install $home_dir/.config/feh $curent_dir/feh
+install $home_dir/.config/polybar $curent_dir/polybar
+
+# neovim
+install $home_dir/.config/nvim $curent_dir/nvim
+
+# emacs
+install $home_dir/.emacs.d $curent_dir/.emacs.d
+
+# rclone
+install $home_dir/.config/rclone $curent_dir/rclone
 
 # zsh
 install $home_dir/.zshrc $curent_dir/zsh/.zshrc
