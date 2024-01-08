@@ -106,11 +106,15 @@ alias vim="nvim"
 alias vi="nvim"
 alias c="cd"
 alias b="cd .."
+alias x="startx"
+alias cls="clear"
+alias e="emacs -nw"
 
 # fcitx setting
 export XMODIFIERS=@im=fcitx
 export GTK_IM_MODULE=xim
-export QT_IM_MODULE=xim
+export QT_IM_MODULE=fcitx
+export DefaultIMModule=fcitx
 
 # system_proxy
 export proxy="http://127.0.0.1:7890"
@@ -122,3 +126,5 @@ export no_proxy="localhost, 127.0.0.1, ::1"
 # PATH
 export PATH=$PATH:~/.local/bin
 export PATH=$PATH:~/.opt/cfw # clash for window
+
+set -o vi
