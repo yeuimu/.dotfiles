@@ -1,0 +1,8 @@
+.emacs.d/eln-cache/*
+.emacs.d/elpa/*
+.emacs.d/.history
+.emacs.d/.bookmarks
+*.elc
+*~
+
+rclone
