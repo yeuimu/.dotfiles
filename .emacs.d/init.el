@@ -17,23 +17,11 @@
 
 (require 'basic)
 (require 'package-config)
+
+(require 'use-package)
+
 (require 'evil-config)
 (require 'org-config)
 (require 'theme-config)
 
 (provide 'init)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -2,7 +2,10 @@
 ;;; Commentary:
 ;;; Code:
 
-;(load-theme 'cyberpunk)
+(use-package doom-themes
+  :ensure t
+  :config
+  (load-theme 'doom-nord t))
 
 (provide 'theme-config)
 
