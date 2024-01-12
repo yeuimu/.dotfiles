@@ -53,12 +53,8 @@ install $home_dir/.config/nvim $curent_dir/nvim
 # emacs
 install $home_dir/.emacs.d $curent_dir/.emacs.d
 
-# rclone
-install $home_dir/.config/rclone $curent_dir/rclone
-
 # zsh
 install $home_dir/.zshrc $curent_dir/zsh/.zshrc
-install $home_dir/.oh-my-zsh $curent_dir/zsh/.oh-my-zsh
 
 # x
 install $home_dir/.xinitrc $curent_dir/x/.xinitrc
