@@ -10,15 +10,16 @@
 
   ;; General
   ; auto linefeed on org mode
-  (add-hook 'org-mode-hook (lambda () (setq truncate-lines nil)))
+  (setq truncate-lines nil)
+  ; agency file
+  (setq org-agenda-files '("~/orgmode/"))
   
   ;; Todo
   ; todo state
-  ;(setq org-todo-keywords '((sequence "TODO" "DOING" "DONE")))
+  (setq org-todo-keywords '((sequence "TODO(!)" "DOING(!)" "DONE(@/!)")))
   ; todo state color
-  ;(setq org-todo-keyword-faces '(("TODO" . "red2")
-  ;                             ("DOING" . "yellow2")
-  ;                             ("DONE" . "green2")))
+  (setq org-todo-keyword-faces '(
+	("DOING" . (:foreground "#eec78e" :weight bold))))
   ; todo dependencies
   (setq org-enforce-todo-dependencies t)
 
@@ -59,11 +60,22 @@
   ; insert todo
   (evil-define-key '(normal insert) org-mode-map
     (kbd "M-i") 'org-insert-todo-heading)
+  ; check
+  (evil-define-key '(normal insert) org-mode-map
+    (kbd "M-c") 'org-ctrl-c-ctrl-c)
 
   ;; Date
   ; insert time stamp
   (evil-define-key '(normal insert) org-mode-map
-  (kbd "M-.") 'org-time-stamp)
+    (kbd "M-.") 'org-time-stamp)
+  ; insert due date
+  (evil-define-key '(normal insert) org-mode-map
+    (kbd "M-d") 'org-deadline)
+  ; insert schedule date
+  (evil-define-key '(normal insert) org-mode-map
+    (kbd "M-s") 'org-schedule)
+  ; after done, insert time stamp
+  (setq org-log-done 'time)
 ) 
 
 (provide 'org-config)
