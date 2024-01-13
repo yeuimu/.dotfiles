@@ -10,16 +10,18 @@
 
   ;; General
   ; auto linefeed on org mode
-  (setq truncate-lines nil)
+  ;(setq truncate-lines nil)
+  (add-hook 'org-mode-hook (lambda () (setq truncate-lines nil)))
   ; agency file
   (setq org-agenda-files '("~/orgmode/"))
   
   ;; Todo
   ; todo state
-  (setq org-todo-keywords '((sequence "TODO(!)" "DOING(!)" "DONE(@/!)")))
+  (setq org-todo-keywords '((sequence "TODO(t!)" "DOING(i/!)" "|" "DONE(d@/!)" "CANCEL(c@/!)")))
   ; todo state color
   (setq org-todo-keyword-faces '(
-	("DOING" . (:foreground "#eec78e" :weight bold))))
+				 ("DOING" . (:foreground "#eec78e" :weight bold))
+				 ("CANCEL" . (:foreground "#4C566A" :weight bold))))
   ; todo dependencies
   (setq org-enforce-todo-dependencies t)
 
@@ -54,15 +56,12 @@
     (kbd "M-J") 'org-move-subtree-down)
 
   ;; Todo  
-  ; cycling task state
+  ; select task state
   (evil-define-key '(normal insert) org-mode-map
     (kbd "M-t") 'org-todo)
-  ; insert todo
+  ; insert checkbox
   (evil-define-key '(normal insert) org-mode-map
     (kbd "M-i") 'org-insert-todo-heading)
-  ; check
-  (evil-define-key '(normal insert) org-mode-map
-    (kbd "M-c") 'org-ctrl-c-ctrl-c)
 
   ;; Date
   ; insert time stamp
