@@ -23,6 +23,7 @@
 (require 'evil-config)
 (require 'org-config)
 (require 'theme-config)
+(require 'projectile-config)
 
 (provide 'init)
 (custom-set-variables

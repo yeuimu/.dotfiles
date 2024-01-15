@@ -4,6 +4,8 @@
 .emacs.d/.bookmarks
 .emacs.d/auto-save-list/
 .emacs.d/history
+.emacs.d/bookmarks
+.emacs.d/projectile-bookmarks.eld
 *.elc
 *~
 

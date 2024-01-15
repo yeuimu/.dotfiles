@@ -58,3 +58,6 @@ install $home_dir/.zshrc $curent_dir/zsh/.zshrc
 
 # x
 install $home_dir/.xinitrc $curent_dir/x/.xinitrc
+
+# tmux
+install $home_dir/.tmux.conf $curent_dir/tmux/.tmux.conf
