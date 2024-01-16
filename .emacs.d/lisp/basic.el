@@ -91,7 +91,7 @@
 (defun he/org-refile-to-datetree (&optional bfn)
   (interactive)
   (require 'org-datetree)
-  (let* ((bfn (or bfn (find-file-noselect (expand-file-name "~/orgmode/todo.org"))))
+  (let* ((bfn (or bfn (find-file-noselect (expand-file-name "~/Projects/orgmode/todo.org"))))
      (datetree-date (he/org-read-datetree-date (org-read-date t nil))))
     (org-refile nil nil (list nil (buffer-file-name bfn) nil
                   (with-current-buffer bfn

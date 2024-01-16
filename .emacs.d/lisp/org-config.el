@@ -11,24 +11,30 @@
   ; auto linefeed on org mode
   (add-hook 'org-mode-hook (lambda () (setq truncate-lines nil)))
   ; agency file
-  (setq org-agenda-files '("~/Projects/orgmode/todo.org"))
+  (setq org-agenda-files '("~/Projects/orgmode/todo.org"
+			   "~/Projects/orgmode/repeat.org"))
 
   ;; Capture templates
   (setq org-capture-templates '(
-				("i" "inbox" entry (file+headline "~/orgmode/inbox.org" "inbox")
+				("i" "inbox" entry (file+headline "~/Projects/orgmode/inbox.org" "inbox")
 				 "* [#C] %U %i%?" :empty-lines 1)
-				("t" "todo" entry (file+datetree "~/orgmode/todo.org")
+				("t" "todo" entry (file+datetree "~/Projects/orgmode/todo.org")
 				 "* TODO [#B] %U %i%?" :empty-lines 1)
-				("s" "someday" entry (file+headline "~/orgmode/someday.org" "someday")
+				("s" "someday" entry (file+headline "~/Projects/orgmode/someday.org" "someday")
 				 "* [#C] %U %i%?" :empty-lines 1)
-				("r" "reference" entry (file+headline "~/orgmode/reference.org" "reference")
-				 "* [#C] %U %i%?" :empty-lines 1)))
+				("r" "reference" entry (file+headline "~/Projects/orgmode/reference.org" "reference")
+				 "* [#C] %U %i%?" :empty-lines 1)
+				("e" "repeat" entry (file+headline "~/Projects/orgmode/repeat.org" "repeat")
+				 "* [#C] %U %i%?" :empty-lines 1)
+				))
    ; Refile targets
    (setq org-refile-targets '(
-			     ("~/orgmode/inbox.org" :level . 1)
-			     ("~/orgmode/someday.org" :level . 1)
-			     ("~/orgmode/reference.org" :level . 1)
-			     ("~/orgmode/todo.org" :maxlevel . 3)))
+			     ("~/Projects/orgmode/inbox.org" :level . 1)
+			     ("~/Projects/orgmode/someday.org" :level . 1)
+			     ("~/Projects/orgmode/reference.org" :level . 1)
+			     ;("~/Projects/orgmode/todo.org" :maxlevel . 3)
+			     ("~/Projects/orgmode/repeat.org" :level . 1)
+			     ))
   
   ;; Todo
   ; todo state
