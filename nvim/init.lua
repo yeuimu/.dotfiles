@@ -1,1 +1,2 @@
-require('basic')
+require('init-basic')
+require('init-lazy')

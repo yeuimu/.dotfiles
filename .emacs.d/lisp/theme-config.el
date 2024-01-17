@@ -5,7 +5,7 @@
 (use-package doom-themes
   :ensure t
   :config
-  (load-theme 'doom-acario-light t))
+  (load-theme 'doom-nord t))
 
 (provide 'theme-config)
 
