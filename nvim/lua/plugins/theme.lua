@@ -1,5 +1,8 @@
 return {
-	{
+--  "rebelot/kanagawa.nvim",
+--  config = function()
+--    vim.cmd.colorscheme('kanagawa')
+--  end
 		'shaunsingh/nord.nvim',
 		lazy = false,
 		config = function()
@@ -12,5 +15,4 @@ return {
 
 			require('nord').set()
 		end
-	}
 }
