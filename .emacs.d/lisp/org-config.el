@@ -100,6 +100,8 @@
   ; select task state
   (evil-define-key '(normal insert) org-mode-map
     (kbd "<leader>t") 'org-todo)
+
+  ;; Checkbox
   ; insert checkbox
   (evil-define-key '(normal insert) org-mode-map
     (kbd "<leader>i") 'org-insert-todo-heading)
@@ -144,6 +146,11 @@
   ; report
   (evil-define-key '(normal insert) org-mode-map
     (kbd "<leader>cr") 'org-clock-report)
+
+  ;; Dict
+  ; search word
+  (evil-define-key '(normal insert) org-mode-map
+    (kbd "<leader>w") 'fanyi-dwim2)
 
 )
 (provide 'org-config)

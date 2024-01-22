@@ -19,6 +19,8 @@
 (require 'package-config)
 
 (require 'use-package)
+(use-package fanyi
+  :ensure t)
 
 (require 'evil-config)
 (require 'org-config)
