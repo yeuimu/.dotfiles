@@ -12,7 +12,7 @@ return {
           ["core.dirman"] = {
             config = {
               workspaces = {
-                notes = "~/notes",
+                notes = "~/Documents/notes",
               },
               default_workspace = "notes",
             },
