@@ -1,18 +1,35 @@
 return {
---  "rebelot/kanagawa.nvim",
---  config = function()
---    vim.cmd.colorscheme('kanagawa')
---  end
-		'shaunsingh/nord.nvim',
-		lazy = false,
-		config = function()
-			vim.g.nord_contrast = true
-			vim.g.nord_borders = false
-			vim.g.nord_disable_background = false
-			vim.g.nord_italic = false
-			vim.g.nord_uniform_diff_background = true
-			vim.g.nord_bold = false
-
-			require('nord').set()
-		end
+  -- -- Theme
+  -- Default theme
+  {
+    'shaunsingh/nord.nvim',
+    priority = 50,
+    config = function()
+      vim.g.nord_contrast = true
+      vim.g.nord_borders = true
+      vim.g.nord_italic = true
+      vim.g.nord_bold = true
+      vim.g.nord_enable_sidebar_background = true  
+      require('nord').set()
+    end
+  },
+  -- *.lua
+  {
+    "folke/tokyonight.nvim",
+    ft = "lua",
+    priority = 1000,
+    opts = { style = "moon" },
+    config = function()
+      vim.cmd.colorscheme("tokyonight")
+    end,
+  },
+  -- *.norg
+  {
+    "rebelot/kanagawa.nvim",
+    ft = "norg",
+    priority = 1000,
+    config = function()
+      vim.cmd.colorscheme("kanagawa")
+    end
+  }
 }
