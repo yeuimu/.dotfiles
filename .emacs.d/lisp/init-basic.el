@@ -4,12 +4,6 @@
 
 ; start
 (setq initial-major-mode 'org-mode)
-(defun open-project-list-if-no-file ()
-  "如果没有打开特定文件，则打开项目列表。"
-  (unless (cl-some #'buffer-file-name (buffer-list))
-    (counsel-projectile-switch-project)))
-
-(add-hook 'emacs-startup-hook 'open-project-list-if-no-file)
 
 ; 自动折行
 (setq truncate-lines nil)
@@ -99,4 +93,4 @@
                   (org-datetree-find-date-create datetree-date)
                   (point)))))))
 
-(provide 'basic)
+(provide 'init-basic)

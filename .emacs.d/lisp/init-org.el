@@ -6,46 +6,36 @@
   :ensure t
   :config
   ;;; Config
-
   ;; General
   ; auto linefeed on org mode
   (add-hook 'org-mode-hook (lambda () (setq truncate-lines nil)))
-  ; agency file
+
   (setq org-agenda-files '("~/Projects/orgmode/todo.org"
-			   "~/Projects/orgmode/repeat.org"))
-
-  ;; Capture templates
-  (setq org-capture-templates '(
-				("i" "inbox" entry (file+headline "~/Projects/orgmode/inbox.org" "inbox")
-				 "* [#C] %U %i%?" :empty-lines 1)
-				("t" "todo" entry (file+datetree "~/Projects/orgmode/todo.org")
-				 "* TODO [#B] %U %i%?" :empty-lines 1)
-				("s" "someday" entry (file+headline "~/Projects/orgmode/someday.org" "someday")
-				 "* [#C] %U %i%?" :empty-lines 1)
-				("r" "reference" entry (file+headline "~/Projects/orgmode/reference.org" "reference")
-				 "* [#C] %U %i%?" :empty-lines 1)
-				("e" "repeat" entry (file+headline "~/Projects/orgmode/repeat.org" "repeat")
-				 "* [#C] %U %i%?" :empty-lines 1)
-				))
-   ; Refile targets
-   (setq org-refile-targets '(
-			     ("~/Projects/orgmode/inbox.org" :level . 1)
-			     ("~/Projects/orgmode/someday.org" :level . 1)
-			     ("~/Projects/orgmode/reference.org" :level . 1)
-			     ;("~/Projects/orgmode/todo.org" :maxlevel . 3)
-			     ("~/Projects/orgmode/repeat.org" :level . 1)
-			     ))
-  
-  ;; Todo
-  ; todo state
-  (setq org-todo-keywords '((sequence "TODO(t/!)" "DOING(i/!)" "|" "DONE(d@/!)" "CANCEL(c@/!)")))
-  ; todo state color
-  (setq org-todo-keyword-faces '(
-				 ("DOING" . (:foreground "#eec78e" :weight bold))
-				 ("CANCEL" . (:foreground "#4C566A" :weight bold))))
-  ; todo dependencies
-  (setq org-enforce-todo-dependencies t)
-
+                           "~/Projects/orgmode/repeat.org")
+        org-capture-templates '(
+                                ("i" "inbox" entry (file+headline "~/Projects/orgmode/inbox.org" "inbox")
+                                 "* [#C] %U %i%?" :empty-lines 1)
+                                ("t" "todo" entry (file+datetree "~/Projects/orgmode/todo.org")
+                                 "* TODO [#B] %U %i%?" :empty-lines 1)
+                                ("s" "someday" entry (file+headline "~/Projects/orgmode/someday.org" "someday")
+                                 "* [#C] %U %i%?" :empty-lines 1)
+                                ("r" "reference" entry (file+headline "~/Projects/orgmode/reference.org" "reference")
+                                 "* [#C] %U %i%?" :empty-lines 1)
+                                ("e" "repeat" entry (file+headline "~/Projects/orgmode/repeat.org" "repeat")
+                                 "* [#C] %U %i%?" :empty-lines 1))
+        org-refile-targets '(
+                             ("~/Projects/orgmode/inbox.org" :level . 1)
+			                       ("~/Projects/orgmode/someday.org" :level . 1)
+			                       ("~/Projects/orgmode/reference.org" :level . 1)
+			                       ;("~/Projects/orgmode/todo.org" :maxlevel . 3)
+			                       ("~/Projects/orgmode/repeat.org" :level . 1))
+        org-todo-keywords '((sequence "TODO(t/!)" "DOING(i/!)" "|" "DONE(d@/!)" "CANCEL(c@/!)"))
+        org-todo-keyword-faces '(
+                                 ("DOING" . (:foreground "#eec78e" :weight bold))
+                                 ("CANCEL" . (:foreground "#4C566A" :weight bold)))
+        org-enforce-todo-dependencies t
+        )
+ 
   ;;; Shortcutkey setting
 
   ;; General
@@ -151,6 +141,8 @@
   ; search word
   (evil-define-key '(normal insert) org-mode-map
     (kbd "<leader>w") 'fanyi-dwim2)
-
 )
-(provide 'org-config)
+
+(require 'init-org-ui)
+(provide 'init-org)
+;;; end init-org.el

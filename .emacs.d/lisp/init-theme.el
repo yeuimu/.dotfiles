@@ -7,5 +7,8 @@
   :config
   (load-theme 'doom-nord t))
 
-(provide 'theme-config)
+(setq custom-file "~/.emacs.d/lisp/custom.el")
+(load custom-file)
+
+(provide 'init-theme)
 
