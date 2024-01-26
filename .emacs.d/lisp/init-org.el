@@ -99,9 +99,6 @@
   ; search word
   (evil-define-key '(normal insert) org-mode-map
     (kbd "<leader>ew") 'fanyi-dwim2)
-  ; find in project
-  (evil-define-key '(normal insert) org-mode-map
-    (kbd "<leader>ep") 'project-find-file)
 
   ;; Project
   ; find file
@@ -109,7 +106,7 @@
     (kbd "<leader>pf") 'project-find-file)
   ; switch project
   (evil-define-key '(normal insert) org-mode-map
-    (kbd "<leader>pw") 'project-switch-to-buffer)
+    (kbd "<leader>pw") 'project-switch-project)
 )
 
 (require 'init-org-ui)
