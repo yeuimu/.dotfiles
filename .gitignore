@@ -11,6 +11,8 @@
 .emacs.d/persist/
 .emacs.d/projects
 .emacs.d/url/
+.emacs.d/org-generic-id-locations
+.emacs.d/eshell
 *.elc
 *~
 

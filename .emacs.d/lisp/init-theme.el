@@ -4,6 +4,7 @@
 
 (use-package doom-themes
   :ensure t
+  :defer nil
   :config
   (load-theme 'doom-nord t))
 

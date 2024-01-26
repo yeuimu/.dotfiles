@@ -4,18 +4,9 @@
 
 (add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
 
-(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
-(package-initialize)
-(require 'use-package)
-
-(use-package fanyi
-  :ensure t)
-(use-package evil
-  :ensure t
-  :config
-  (evil-mode 1))
-
+(require 'init-elpa)
 (require 'init-theme)
+(require 'init-plugins)
 (require 'init-basic)
 (require 'init-org)
 

@@ -38,79 +38,36 @@
  
   ;;; Shortcutkey setting
 
-  ;; General
-  ; clear space binding on normal visual motion
+  ;; Leader
   (evil-define-key '(normal visual motion) org-mode-map (kbd "SPC") nil) 
-  ; leader
-  (evil-set-leader 'normal (kbd "SPC"))
-  (evil-set-leader 'insert (kbd "TAB"))
-  ; promote level
+  (evil-set-leader '(normal insert motion) (kbd "SPC"))
   (evil-define-key '(normal insert) org-mode-map
-    (kbd "<leader>gh") 'org-metaleft)
-  ; demote level
-  (evil-define-key '(normal insert) org-mode-map
-    (kbd "<leader>gl") 'org-metaright)
-  ; C-c C-c key mapping
-  (evil-define-key '(normal insert) org-mode-map
-    (kbd "<leader>gc") 'org-ctrl-c-ctrl-c)
-  ; set property
-  (evil-define-key '(normal insert) org-mode-map
-    (kbd "<leader>gp") 'org-set-property)
+    (kbd "<leader>SPC") (lambda () (interactive) (insert " ")))
 
-  ;; Quit
-  ; switch betwen isert and normal
-  (evil-define-key 'insert org-mode-map          
-    (kbd "<leader>qq") 'evil-force-normal-state)
+  ;; Basic opt
+  ; Cycling org-cycle
   (evil-define-key '(normal insert) org-mode-map
-    (kbd "<leader>qw") '(lambda ()
-			  (interactive)
-			  (save-buffer)
-			  (if (eq (length (delq nil (mapcar 'buffer-file-name (buffer-list)))) 1)
-			      (save-buffers-kill-emacs)
-			    (kill-this-buffer))))
-
-  ;; Headline
-  ; outline cycling
-  (evil-define-key 'normal org-mode-map
-    (kbd "<leader>f") 'org-cycle)
+    (kbd "<leader>gf") 'org-cycle)
+  ; Execute Command
+   (evil-define-key '(normal insert) org-mode-map
+    (kbd "<leader>g;") 'evil-ex) 
   ; open agency
   (evil-define-key '(normal insert) org-mode-map
-    (kbd "<leader>a") 'org-agenda-list)
-  ; make headline
+    (kbd "<leader>ga") 'org-agenda-list)
+  ; set property
   (evil-define-key '(normal insert) org-mode-map
-    (kbd "<leader>H") 'org-meta-return)
+    (kbd "<leader>gP") 'org-set-property)
+  ; Headline
   ; move up headline
   (evil-define-key '(normal insert) org-mode-map
-    (kbd "<leader>K") 'org-move-subtree-up)
+    (kbd "<leader>gK") 'org-move-subtree-up)
   ; move down headline
   (evil-define-key '(normal insert) org-mode-map
-    (kbd "<leader>J") 'org-move-subtree-down)
-
-  ;; Todo  
-  ; select task state
-  (evil-define-key '(normal insert) org-mode-map
-    (kbd "<leader>t") 'org-todo)
-
-  ;; Checkbox
-  ; insert checkbox
-  (evil-define-key '(normal insert) org-mode-map
-    (kbd "<leader>i") 'org-insert-todo-heading)
-
-  ;; Date
-  ; insert time stamp
-  (evil-define-key '(normal insert) org-mode-map
-    (kbd "<leader>.") 'org-time-stamp)
-  ; insert due date
-  (evil-define-key '(normal insert) org-mode-map
-    (kbd "<leader>d") 'org-deadline)
-  ; insert schedule date
-  (evil-define-key '(normal insert) org-mode-map
-    (kbd "<leader>s") 'org-schedule)
-
-  ;; Capture
+    (kbd "<leader>gJ") 'org-move-subtree-down)
+  ; Capture
   ; open capture
   (evil-define-key '(normal insert) org-mode-map
-    (kbd "<leader>p") 'org-capture)
+    (kbd "<leader>gp") 'org-capture)
 
   ;; Refile
   ; refile to targets
@@ -137,12 +94,16 @@
   (evil-define-key '(normal insert) org-mode-map
     (kbd "<leader>cr") 'org-clock-report)
 
-  ;; Dict
+  ;; Other
+  ; Dict
   ; search word
   (evil-define-key '(normal insert) org-mode-map
-    (kbd "<leader>w") 'fanyi-dwim2)
+    (kbd "<leader>ew") 'fanyi-dwim2)
+  ; find in project
+  (evil-define-key '(normal insert) org-mode-map
+    (kbd "<leader>ep") 'project-find-file)
 )
 
 (require 'init-org-ui)
 (provide 'init-org)
-;;; end init-org.el
+;;; init-org.el ends here
