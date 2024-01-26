@@ -102,6 +102,14 @@
   ; find in project
   (evil-define-key '(normal insert) org-mode-map
     (kbd "<leader>ep") 'project-find-file)
+
+  ;; Project
+  ; find file
+  (evil-define-key '(normal insert) org-mode-map
+    (kbd "<leader>pf") 'project-find-file)
+  ; switch project
+  (evil-define-key '(normal insert) org-mode-map
+    (kbd "<leader>pw") 'project-switch-to-buffer)
 )
 
 (require 'init-org-ui)
