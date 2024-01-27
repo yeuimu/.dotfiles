@@ -27,4 +27,4 @@
   `(org-level-1 ((t (:inherit outline-1 :height 1.75))))
   `(org-document-title ((t ( :height 2.0 :underline nil)))))
 
-(provide 'init-org-ui)
+(provide 'org-ui)

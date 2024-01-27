@@ -4,7 +4,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(counsel ivy which-key fanyi doom-themes evil org-superstar org-bullets use-package))
+   '(restart-emacs counsel ivy which-key fanyi doom-themes evil org-superstar org-bullets use-package))
  '(warning-suppress-types '((comp) (comp) (comp) (comp) (comp))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.

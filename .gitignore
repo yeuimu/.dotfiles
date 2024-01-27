@@ -13,6 +13,7 @@
 .emacs.d/url/
 .emacs.d/org-generic-id-locations
 .emacs.d/eshell
+.emacs.d/recentf
 *.elc
 *~
 

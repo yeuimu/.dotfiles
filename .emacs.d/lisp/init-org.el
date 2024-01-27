@@ -11,7 +11,8 @@
   (add-hook 'org-mode-hook (lambda () (setq truncate-lines nil)))
 
   (setq org-agenda-files '("~/Projects/orgmode/todo.org"
-                           "~/Projects/orgmode/repeat.org")
+                           "~/Projects/orgmode/repeat.org"
+                           "~/Projects/orgmode/inbox.org")
         org-capture-templates '(
                                 ("i" "inbox" entry (file+headline "~/Projects/orgmode/inbox.org" "inbox")
                                  "* [#C] %U %i%?" :empty-lines 1)
@@ -57,6 +58,12 @@
   ; set property
   (evil-define-key '(normal insert) org-mode-map
     (kbd "<leader>gP") 'org-set-property)
+  ; insert code block
+  (evil-define-key '(normal insert) org-mode-map
+    (kbd "<leader>gc") 'org-insert-src-block)
+  ; tag view
+  (evil-define-key '(normal insert) org-mode-map
+    (kbd "<leader>gt") 'org-tags-view)
   ; Headline
   ; move up headline
   (evil-define-key '(normal insert) org-mode-map
@@ -108,7 +115,7 @@
   (evil-define-key '(normal insert) org-mode-map
     (kbd "<leader>pw") 'project-switch-project)
 )
-
-(require 'init-org-ui)
+(require 'org-utility)
+(require 'org-ui)
 (provide 'init-org)
 ;;; init-org.el ends here

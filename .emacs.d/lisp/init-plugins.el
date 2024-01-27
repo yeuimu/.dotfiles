@@ -9,9 +9,8 @@
   :ensure t
   :defer nil
   :init
-  (setq evil-want-keybinding nil)
-  (evil-mode)
   :config
+  (setq evil-want-keybinding nil)
   (evil-mode 1))
 
 (use-package which-key
