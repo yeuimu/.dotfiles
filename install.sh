@@ -61,3 +61,6 @@ install $home_dir/.xinitrc $curent_dir/x/.xinitrc
 
 # tmux
 install $home_dir/.tmux.conf $curent_dir/tmux/.tmux.conf
+
+# font config
+install $home_dir/.config/fontconfig $curent_dir/fontconfig
