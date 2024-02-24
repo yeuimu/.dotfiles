@@ -46,6 +46,7 @@ install $home_dir/.config/rofi $curent_dir/rofi
 install $home_dir/.config/alacritty $curent_dir/alacritty
 install $home_dir/.config/feh $curent_dir/feh
 install $home_dir/.config/polybar $curent_dir/polybar
+install $home_dir/.config/picom $curent_dir/picom
 
 # neovim
 install $home_dir/.config/nvim $curent_dir/nvim
@@ -64,3 +65,6 @@ install $home_dir/.tmux.conf $curent_dir/tmux/.tmux.conf
 
 # font config
 install $home_dir/.config/fontconfig $curent_dir/fontconfig
+
+# sound
+install $home_dir/.asoundrc $curent_dir/.asoundrc
