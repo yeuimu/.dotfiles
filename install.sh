@@ -43,7 +43,7 @@ install(){
 install $home_dir/.config/bspwm $curent_dir/bspwm
 install $home_dir/.config/sxhkd $curent_dir/sxhkd
 install $home_dir/.config/rofi $curent_dir/rofi
-install $home_dir/.config/alacritty $curent_dir/alacritty
+install $home_dir/.config/kitty $curent_dir/kitty
 install $home_dir/.config/feh $curent_dir/feh
 install $home_dir/.config/polybar $curent_dir/polybar
 install $home_dir/.config/picom $curent_dir/picom
@@ -68,3 +68,6 @@ install $home_dir/.config/fontconfig $curent_dir/fontconfig
 
 # sound
 install $home_dir/.asoundrc $curent_dir/.asoundrc
+
+# mpd
+install $home_dir/.config/mpd $curent_dir/mpd
