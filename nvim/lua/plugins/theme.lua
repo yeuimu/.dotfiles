@@ -6,6 +6,7 @@ return {
     priority = 50,
     config = function()
       vim.cmd.colorscheme('nord')
+      vim.cmd('hi Normal guibg=NONE ctermbg=NONE')
     end,
   },
   -- *.lua
@@ -16,6 +17,7 @@ return {
     opts = { style = 'moon' },
     config = function()
       vim.cmd.colorscheme('tokyonight')
+      vim.cmd('hi Normal guibg=NONE ctermbg=NONE')
     end,
   },
   -- *.norg
@@ -25,6 +27,7 @@ return {
     priority = 1000,
     config = function()
       vim.cmd.colorscheme('kanagawa')
+      vim.cmd('hi Normal guibg=NONE ctermbg=NONE')
     end,
   },
   -- headline

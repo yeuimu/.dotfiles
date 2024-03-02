@@ -23,3 +23,7 @@ vim.opt.softtabstop = 2 -- 设置按下退格键时处理空格的方式
 -- 折叠层级
 vim.wo.foldlevel = 99
 vim.wo.conceallevel = 2
+
+-- 使用终端的背景色
+vim.cmd('hi Normal guibg=NONE ctermbg=NONE')
+vim.o.termguicolors = true
