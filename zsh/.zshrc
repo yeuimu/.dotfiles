@@ -125,4 +125,10 @@ export no_proxy="localhost, 127.0.0.1, ::1"
 
 export PATH=$PATH:~/.local/bin
 
+export GDK_SCALE=2
+export GDK_DPI_SCALE=0.5
+export GDK_BACKEND=x11
+export QT_AUTO_SCREEN_SCALE_FACTOR=2
+export QT_ENABLE_HIGHDPI_SCALING=0.5
+
 set -o vi
