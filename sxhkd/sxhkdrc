@@ -8,7 +8,7 @@ super + Return
 
 # program launcher
 super + @space
-	rofi -show drun -dpi 150
+	~/.config/rofi/launch.sh drun
 
 # rofi test
 super + shift + {i,o,p}
