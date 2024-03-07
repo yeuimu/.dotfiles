@@ -2,9 +2,8 @@
 ;;; Commentary:
 ;;; Code:
 
-(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
-
 (require 'package)
+(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
 
 ;;; initialize the packages, avoiding a re-initialization
 (unless (bound-and-true-p package--initialized) ;; To avoid warnings on 27
