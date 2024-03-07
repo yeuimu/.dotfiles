@@ -9,12 +9,12 @@
 
 /*****----- Global Properties -----*****/
 * {
-    background:     #2a273f;
-    background-alt: #393552;
-    foreground:     #e0def4;
-    selected:       #3e8fb0;
+    background:     #3B4252;
+    background-alt: #434C5E;
+    foreground:     #D8DEE9;
+    selected:       #81A1C1;
 
-    font: "serif 15";
+    font: "serif 22";
 }
 
 /*****----- Main Window -----*****/
@@ -139,7 +139,7 @@ element selected.normal {
 element-icon {
     background-color:            transparent;
     text-color:                  inherit;
-    size:                        48px;
+    size:                        58px;
     cursor:                      inherit;
 }
 element-text {

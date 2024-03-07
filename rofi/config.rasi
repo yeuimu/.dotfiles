@@ -1,6 +1,6 @@
 configuration {
     show-icons: true;
-    terminal: "alacritty";
+    terminal: "kitty";
     drun-display-format:        "{name}";
     disable-history: false;
     hide-scrollbar: true;

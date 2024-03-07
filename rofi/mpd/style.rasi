@@ -16,11 +16,11 @@ configuration {
 
 /*****----- Global Properties -----*****/
 * {
-    background:     #2a273f;
-    background-alt: #393552;
-    foreground:     #e0def4;
+    background:     #3B4252;
+    background-alt: #434C5E;
+    foreground:     #D8DEE9;
     active:         #3e8fb0;
-    selected:       #f6c177;
+    selected:       #EBCB8B;
     urgent:         #eb6f92;
 
     font: "serif 20";
