@@ -1,16 +1,13 @@
 #! /bin/sh
 
-xrandr_output=$(bspc query -M --names)
-if echo "$xrandr_output" | grep -q "HDMI-A-0" || "$xrandr_output" | grep -q "center";then
+if bspc query -M --names | grep "HDMI-A-0" >/dev/null 2>&1 ;then
 	echo "Xft.dpi: 150" | xrdb -merge
 	echo "Xcursor.size: 50" | xrdb -merge
 	feh --bg-center ~/.config/feh/nord1.webp & # wallpaper
 	xrandr --output HDMI-A-0 --primary
 	xrandr --output eDP --right-of HDMI-A-0
 	xrandr --output eDP --off
-	bspc monitor HDMI-A-0 -n center
-	bspc monitor eDP -n right
-	bspc monitor center -d 1 2 3 4 5 6 7 8 9 10
+	bspc monitor HDMI-A-0 -d 1 2 3 4 5 6 7 8 9 10
 else
 	echo "Xft.dpi: 210" | xrdb -merge
 	echo "Xcursor.size: 70" | xrdb -merge
@@ -34,7 +31,7 @@ pgrep -x sxhkd > /dev/null || sxhkd &
 picom -b &
 fcitx5 &
 
-if echo "$xrandr_output" | grep -q "HDMI-A-0" || "$xrandr_output" | grep -q "center"; then
+if bspc query -M --names | grep "HDMI-A-0" >/dev/null 2>&1 ; then
   ~/.config/polybar/launch.sh monitor
 else
   ~/.config/polybar/launch.sh note

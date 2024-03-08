@@ -59,6 +59,7 @@ rofi_cmd_monitor() {
     -theme-str 'textbox-prompt-colon {str: "";}' \
     -theme-str "* {font: \"serif 15\";}" \
     -theme-str "window {width: 600px;}" \
+    -theme-str "element-text {font: \"serif 20\";}" \
     -dmenu \
     -p "$prompt" \
     -mesg "$mesg" \
@@ -81,7 +82,7 @@ rofi_cmd_note() {
 
 # Pass variables to rofi dmenu
 run_rofi() {
-  if echo "$xrandr_output" | grep -q "HDMI-A-0" || "$xrandr_output" | grep -q "center"; then
+  if bspc query -M --names | grep "HDMI-A-0" >/dev/null 2>&1 ; then
     echo -e "$option_1\n$option_2\n$option_3\n$option_4\n$option_5\n$option_6" | rofi_cmd_monitor
   else
     echo -e "$option_1\n$option_2\n$option_3\n$option_4\n$option_5\n$option_6" | rofi_cmd_note
