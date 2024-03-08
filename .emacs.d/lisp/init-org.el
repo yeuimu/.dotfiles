@@ -10,9 +10,9 @@
   ; auto linefeed on org mode
   (add-hook 'org-mode-hook (lambda () (setq truncate-lines nil)))
 
-  (setq org-agenda-files '("~/Projects/orgmode/todo.org"
-                           "~/Projects/orgmode/repeat.org"
-                           "~/Projects/orgmode/inbox.org")
+  (setq org-agenda-files '("~/Documents/orgmode/todo.org"
+                           "~/Documents/orgmode/repeat.org"
+                           "~/Documents/orgmode/inbox.org")
         org-capture-templates '(
                                 ("i" "inbox" entry (file+headline "~/Projects/orgmode/inbox.org" "inbox")
                                  "* [#C] %U %i%?" :empty-lines 1)
