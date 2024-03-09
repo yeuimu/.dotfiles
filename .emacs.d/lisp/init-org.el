@@ -4,6 +4,7 @@
 
 (use-package org
   :ensure t
+  :init (setq evil-want-C-i-jump nil)
   :config
   ;;; Config
   ;; General
@@ -47,8 +48,8 @@
 
   ;; Basic opt
   ; Cycling org-cycle
-  (evil-define-key '(normal insert) org-mode-map
-    (kbd "<leader>gf") 'org-cycle)
+  (evil-define-key 'normal org-mode-map
+    (kbd "TAB") 'org-cycle)
   ; Execute Command
    (evil-define-key '(normal insert) org-mode-map
     (kbd "<leader>g;") 'evil-ex) 
