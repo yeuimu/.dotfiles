@@ -3,8 +3,9 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(org-agenda-files '("~/Dropbox/orgmode/inbox.org"))
  '(package-selected-packages
-   '(restart-emacs counsel ivy which-key fanyi doom-themes evil org-superstar org-bullets use-package))
+   '(nerd-icons org-fancy-priorities org-pretty-tags org-modern restart-emacs counsel ivy which-key fanyi doom-themes evil org-superstar org-bullets use-package))
  '(warning-suppress-types '((comp) (comp) (comp) (comp) (comp))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -21,4 +22,4 @@
  '(org-level-7 ((t (:inherit outline-7))))
  '(org-level-8 ((t (:inherit outline-8)))))
 
-(set-face-attribute 'default nil :height 150)
+(set-face-attribute 'default nil :height 120)
