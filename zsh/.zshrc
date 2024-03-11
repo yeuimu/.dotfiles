@@ -109,6 +109,7 @@ alias b="cd .."
 alias x="startx"
 alias cls="clear"
 alias e="emacs -nw"
+alias sd="sudo"
 
 # fcitx setting
 export XMODIFIERS=@im=fcitx
