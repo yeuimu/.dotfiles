@@ -2,9 +2,7 @@
 
 keycode 66 = Escape NoSymbol Escape
 
-keycode 65 = Control_L NoSymbol Control_L
-
-keycode 108 = space NoSymbol space
+keycode 108 = Control_L NoSymbol Control_L
 
 ! 如果修改的按键涉及到了修饰键（modifier）， 那么就需要更新一下相应的修饰键，因为它们是和keycode绑定的
 !
