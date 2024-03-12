@@ -11,26 +11,29 @@
   ; auto linefeed on org mode
   (add-hook 'org-mode-hook (lambda () (setq truncate-lines nil)))
 
-  (setq org-agenda-files '("~/Dropbox/orgmode/todo.org"
-                           "~/Dropbox/orgmode/repeat.org"
-                           "~/Dropbox/orgmode/inbox.org")
+  (setq org-agenda-files '("~/Dropbox/org/todo.org"
+                           "~/Dropbox/org/repeat.org"
+                           "~/Dropbox/org/inbox.org")
         org-capture-templates '(
-                                ("i" "inbox" entry (file "~/Dropbox/orgmode/inbox.org")
+                                ("i" "inbox" entry (file "~/Dropbox/org/inbox.org")
                                  "* %^{headline} %^g \n\n%? \n\n%U" :empty-lines 1)
-                                ("t" "todo" entry (file+datetree "~/Documents/orgmode/todo.org")
+                                ("t" "todo" entry (file+datetree "~/Dropbox/org/todo.org")
                                  "* TODO [#B] %U %i%?" :empty-lines 1)
-                                ("s" "someday" entry (file+headline "~/Documents/orgmode/someday.org" "someday")
+                                ("s" "someday" entry (file+headline "~/Dropbox/org/maybe.org" "someday")
                                  "* [#C] %U %i%?" :empty-lines 1)
-                                ("r" "reference" entry (file+headline "~/Documents/orgmode/reference.org" "reference")
+                                ("r" "reference" entry (file+headline "~/Dropbox/org/reference.org" "reference")
                                  "* [#C] %U %i%?" :empty-lines 1)
-                                ("e" "repeat" entry (file+headline "~/Documents/orgmode/repeat.org" "repeat")
+                                ("e" "repeat" entry (file+headline "~/Dropbox/org/repeat.org" "repeat")
                                  "* [#C] %U %i%?" :empty-lines 1))
         org-refile-targets '(
-                             ("~/Documents/orgmode/inbox.org" :level . 1)
-			                       ("~/Documents/orgmode/someday.org" :level . 1)
-			                       ("~/Documents/orgmode/reference.org" :level . 1)
-			                       ;("~/Documents/orgmode/todo.org" :maxlevel . 3)
-			                       ("~/Documents/orgmode/repeat.org" :level . 1))
+                             ("~/Dropbox/org/inbox.org" :maxlevel . 2)
+			                       ("~/Dropbox/org/maybe.org" :maxlevel . 9)
+			                       ("~/Dropbox/org/reference.org" :maxlevel . 9)
+			                       ("~/Dropbox/org/todo.org" :maxlevel . 9)
+			                       )
+        org-refile-use-outline-path 'file
+        org-outline-path-complete-in-steps nil
+        org-refile-allow-creating-parent-nodes 'confirm
         org-todo-keywords '((sequence "TODO(t/!)" "DOING(i/!)" "|" "DONE(d@/!)" "CANCEL(c@/!)"))
         org-todo-keyword-faces '(
                                  ("DOING" . (:foreground "#eec78e" :weight bold))
