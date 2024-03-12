@@ -110,6 +110,7 @@ alias x="startx"
 alias cls="clear"
 alias e="emacs -nw"
 alias sd="sudo"
+alias soft="ssh soft"
 
 # fcitx setting
 export XMODIFIERS=@im=fcitx
