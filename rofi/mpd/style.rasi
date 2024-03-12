@@ -23,7 +23,7 @@ configuration {
     selected:       #EBCB8B;
     urgent:         #eb6f92;
 
-    font: "serif 20";
+    font: "monospace 20";
 }
 
 /*****----- Main Window -----*****/
