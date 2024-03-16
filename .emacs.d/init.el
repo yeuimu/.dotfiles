@@ -5,7 +5,6 @@
 (add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
 
 (require 'init-elpa)
-(require 'init-theme)
 (require 'init-plugins)
 (require 'init-basic)
 (require 'init-org)

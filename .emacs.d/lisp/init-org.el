@@ -116,7 +116,88 @@
   (evil-define-key '(normal ) org-mode-map
     (kbd "<leader>pw") 'project-switch-project)
 )
-(require 'org-utility)
-(require 'org-ui)
+
+(defun org-insert-src-block (src-code-type)
+  "Insert a `SRC-CODE-TYPE' type source code block in org-mode."
+  (interactive
+   (let ((src-code-types
+          '("emacs-lisp" "python" "C" "sh" "java" "js" "clojure" "C++" "css"
+            "calc" "asymptote" "dot" "gnuplot" "ledger" "lilypond" "mscgen"
+            "octave" "oz" "plantuml" "R" "sass" "screen" "sql" "awk" "ditaa"
+            "haskell" "latex" "lisp" "matlab" "ocaml" "org" "perl" "ruby"
+            "scheme" "sqlite" "lua")))
+     (list (ido-completing-read "Source code type: " src-code-types))))
+  (progn
+    (newline-and-indent)
+    (insert (format "#+BEGIN_SRC %s\n" src-code-type))
+    (newline-and-indent)
+    (insert "#+END_SRC\n")
+    (previous-line 2)
+    (org-edit-src-code)))
+
+;; Theme
+(use-package doom-themes
+  :ensure t
+  :defer nil
+  :config
+  (load-theme 'doom-tomorrow-day t))
+
+;; Basic
+(setq org-startup-indented t
+      org-src-tab-acts-natively nil
+      org-hide-emphasis-markers t
+      org-fontify-done-headline t
+      org-hide-leading-stars nil
+      org-pretty-entities t
+      org-agenda-show-inherited-tags nil)
+
+;; Modern Org Mode theme
+(use-package org-modern
+  :ensure t
+  :init
+  (setopt org-modern-table-vertical 2)
+  (setopt org-modern-tag nil)
+ ; (setopt org-modern-todo nil)
+ ; (setopt org-modern-block-name nil)
+ ; (setopt org-modern-keyword nil)
+ ; (setopt org-modern-timestamp nil)
+ ; (setopt org-modern-block-fringe nil)
+  :config (global-org-modern-mode 1))
+
+(use-package org-fancy-priorities
+  :ensure t
+  :hook
+  (org-mode . org-fancy-priorities-mode)
+  :config
+  (setq org-fancy-priorities-list '((?A . " A ")
+                                  (?B . " B ")
+                                  (?C . " C ")
+                                  (?D . " D ")
+                                  )))
+
+;; Hide ':' for tags
+(font-lock-add-keywords 'org-mode
+  '(("^\\*+ "
+     ":" nil nil
+     (0 (put-text-property (match-beginning 0) (match-end 0) 'display "  ")))))
+(use-package org-pretty-tags
+  :demand t
+  :config
+  (setq org-pretty-tags-surrogate-strings
+        (quote
+         (("org" . "ORG")
+          ("nvim" . "NVIM")
+          ("linux" . "LINUX")
+          ("arch" . "ARCH")
+          ("os" . "⚙️ ")
+          ("textbook" . "📚️")
+          ("resources" . "🔗")
+          ("chore" . "📝")
+          ("jp" . "🇯🇵"))))
+  (org-pretty-tags-global-mode))
+
+(setq custom-file "~/.emacs.d/lisp/custom.el")
+(load custom-file)
+
 (provide 'init-org)
 ;;; init-org.el ends here
