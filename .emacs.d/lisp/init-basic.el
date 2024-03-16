@@ -77,20 +77,4 @@
 ;; oh my freaking god, just take my damn answer
 (defalias 'yes-or-no-p 'y-or-n-p)
 
-(defun he/org-read-datetree-date (d)
-  (let ((dtmp (nthcdr 3 (parse-time-string d))))
-    (list (cadr dtmp) (car dtmp) (caddr dtmp))))
-
-;; refile 一个 entry 到 gtd.org 文件
-(defun he/org-refile-to-datetree (&optional bfn)
-  (interactive)
-  (require 'org-datetree)
-  (let* ((bfn (or bfn (find-file-noselect (expand-file-name "~/Projects/orgmode/todo.org"))))
-     (datetree-date (he/org-read-datetree-date (org-read-date t nil))))
-    (org-refile nil nil (list nil (buffer-file-name bfn) nil
-                  (with-current-buffer bfn
-                (save-excursion
-                  (org-datetree-find-date-create datetree-date)
-                  (point)))))))
-
 (provide 'init-basic)
