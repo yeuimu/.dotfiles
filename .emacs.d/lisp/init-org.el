@@ -29,6 +29,7 @@
 			                       ("~/Dropbox/org/maybe.org" :maxlevel . 9)
 			                       ("~/Dropbox/org/reference.org" :maxlevel . 9)
 			                       ("~/Dropbox/org/todo.org" :maxlevel . 9)
+			                       ("~/Dropbox/org/project.org" :maxlevel . 9)
 			                       )
         org-refile-use-outline-path 'file
         org-outline-path-complete-in-steps nil
