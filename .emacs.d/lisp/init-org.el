@@ -12,7 +12,6 @@
   (add-hook 'org-mode-hook (lambda () (setq truncate-lines nil)))
 
   (setq org-agenda-files '("~/Dropbox/org/todo.org"
-                           "~/Dropbox/org/repeat.org"
                            "~/Dropbox/org/inbox.org")
         org-capture-templates '(
                                 ("i" "inbox" entry (file "~/Dropbox/org/inbox.org")
