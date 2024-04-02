@@ -12,12 +12,12 @@ return {
   -- *.lua
   {
     'folke/tokyonight.nvim',
-    ft = { 'lua', 'markdown' },
+    ft = { 'lua', 'markdown', 'python', 'rust' },
     priority = 1000,
     opts = { style = 'moon' },
     config = function()
       vim.cmd.colorscheme('tokyonight')
-      vim.cmd('hi Normal guibg=NONE ctermbg=NONE')
+      -- vim.cmd('hi Normal guibg=NONE ctermbg=NONE')
     end,
   },
   -- *.norg

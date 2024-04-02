@@ -18,6 +18,7 @@ return {
           'markdown_inline',
           'mermaid',
           'norg',
+          'python',
         },
         sync_install = false,
         highlight = { enable = true },
@@ -27,7 +28,7 @@ return {
   },
   {
     'nvim-treesitter/playground',
-    lazy = false,
+    lazy = true,
     config = function()
       require('nvim-treesitter.configs').setup({
         playground = {
