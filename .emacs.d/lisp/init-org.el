@@ -181,22 +181,6 @@
  ; (setopt org-modern-block-fringe nil)
   :config (global-org-modern-mode 1))
 
-(use-package org-fancy-priorities
-  :ensure t
-  :hook
-  (org-mode . org-fancy-priorities-mode)
-  :config
-  (setq org-fancy-priorities-list '((?A . " A ")
-                                  (?B . " B ")
-                                  (?C . " C ")
-                                  (?D . " D ")
-                                  )))
-
-;; Hide ':' for tags
-(font-lock-add-keywords 'org-mode
-  '(("^\\*+ "
-     ":" nil nil
-     (0 (put-text-property (match-beginning 0) (match-end 0) 'display "  ")))))
 (use-package org-pretty-tags
   :demand t
   :config
