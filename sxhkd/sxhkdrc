@@ -6,9 +6,29 @@
 super + Return
   kitty
 
+# mini terminal emulator
+super + alt + Return
+  kitty --class miniTerminal
+
+# audio
+super + alt + a
+  pavucontrol
+
+# Browser
+super + alt + f
+  firefox
+
+# nmtui
+super + alt + w
+  kitty --class nmtui nmtui
+
 # program launcher
 super + @space
 	~/.config/rofi/launch.sh drun
+
+# program launcher
+super + shift + @space
+	kitty dmenu_run
 
 # rofi test
 super + shift + {i,o,p}
