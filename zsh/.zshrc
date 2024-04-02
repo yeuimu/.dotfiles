@@ -134,3 +134,13 @@ export QT_AUTO_SCREEN_SCALE_FACTOR=2
 export QT_ENABLE_HIGHDPI_SCALING=0.5
 
 set -o vi
+
+# chinese => english
+tse(){
+  trans -b zh:en $1
+}
+
+# chinese => japanese
+tsj(){
+  trans -b zh:ja $1
+}
