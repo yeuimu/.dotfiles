@@ -11,10 +11,12 @@ return {
       ensure_installed = {
         'pyright',
         'lua_ls',
+        'rust_analyze',
       },
       automatic_installation = true,
     })
     require('lspconfig').lua_ls.setup({})
     require('lspconfig').pyright.setup({})
+    require('lspconfig').rust_analyzer.setup({})
   end,
 }

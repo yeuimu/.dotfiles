@@ -17,7 +17,7 @@ return {
     opts = { style = 'moon' },
     config = function()
       vim.cmd.colorscheme('tokyonight')
-      -- vim.cmd('hi Normal guibg=NONE ctermbg=NONE')
+      vim.cmd('hi Normal guibg=NONE ctermbg=NONE')
     end,
   },
   -- *.norg
