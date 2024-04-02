@@ -26,6 +26,8 @@ bspc config focus_follows_pointer	true
 
 bspc rule -a "TelegramDesktop" state=floating center=on rectangle=1200x1200+0+0
 bspc rule -a "Clash for Windows" state=floating center=on rectangle=2000x1200+0+0
+bspc rule -a "miniTerminal" state=floating center=on rectangle=800x800+0+0
+bspc rule -a "nmtui" state=floating center=on rectangle=800x800+0+0
 
 pgrep -x sxhkd > /dev/null || sxhkd &
 picom -b &
