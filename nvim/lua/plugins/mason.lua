@@ -11,7 +11,7 @@ return {
       ensure_installed = {
         'pyright',
         'lua_ls',
-        'rust_analyze',
+        'rust_analyzer',
       },
       automatic_installation = true,
     })
