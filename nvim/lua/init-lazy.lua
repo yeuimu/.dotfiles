@@ -14,4 +14,30 @@ end
 -- setting env path
 vim.opt.rtp:prepend(lazypath)
 
-require("lazy").setup('plugins')
+require("lazy").setup(
+  {
+    spec = {
+      { import = "plugins" },
+    },
+    defaults = {
+      lazy = true,
+      version = false,
+    },
+    install = { colorscheme = { 'tokyonight-day' } },
+    performance = {
+      rtp = {
+        -- disable some rtp plugins
+        disabled_plugins = {
+          "gzip",
+          -- "matchit",
+          -- "matchparen",
+          -- "netrwPlugin",
+          "tarPlugin",
+          "tohtml",
+          "tutor",
+          "zipPlugin",
+        },
+      },
+    },
+  }
+)
