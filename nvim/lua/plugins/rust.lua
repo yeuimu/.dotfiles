@@ -4,24 +4,8 @@ return {
   ft = { "rust" },
   dependencies = {
     'neovim/nvim-lspconfig',
-    {
-      'williamboman/mason.nvim',
-      config = function()
-        require('mason').setup()
-      end,
-    },
-    {
-      'williamboman/mason-lspconfig.nvim',
-      opts = {
-        ensure_installed = {
-          'rust_analyzer',
-        },
-        automatic_installation = true,
-      },
-      config = function(_, opts)
-        require('mason-lspconfig').setup(opts)
-      end,
-    },
+    'hrsh7th/nvim-cmp',
+
   },
   opts = {
     server = {
