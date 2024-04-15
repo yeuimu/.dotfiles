@@ -1,0 +1,6 @@
+return {
+  coding = {
+    'lua',
+    'rust',
+  }
+}

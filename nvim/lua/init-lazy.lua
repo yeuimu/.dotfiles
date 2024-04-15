@@ -23,7 +23,6 @@ require("lazy").setup(
       lazy = true,
       version = false,
     },
-    install = { colorscheme = { 'tokyonight-day' } },
     performance = {
       rtp = {
         -- disable some rtp plugins

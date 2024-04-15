@@ -21,5 +21,8 @@ vim.opt.shiftwidth = 2   -- 设置自动缩进时使用的空格数
 vim.opt.softtabstop = 2  -- 设置按下退格键时处理空格的方式
 
 -- 折叠层级
-vim.wo.foldlevel = 99
-vim.wo.conceallevel = 2
+vim.opt.foldlevel = 99
+vim.opt.conceallevel = 2
+
+-- 快捷键反应时间
+vim.opt.timeoutlen = 1500

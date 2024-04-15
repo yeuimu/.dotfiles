@@ -1,6 +1,36 @@
-return {
+local M = {}
+
+M.mason = {
+  'williamboman/mason-lspconfig.nvim',
+  ft = {},
+  priotiry = 100,
+  dependencies = {
+    'williamboman/mason.nvim',
+    config = true
+  },
+  opts = {
+    ensure_installed = {
+    },
+    automatic_installation = true,
+  },
+  config = function(_, opts)
+    require('mason-lspconfig').setup(opts)
+  end,
+}
+
+M.lsp = {
+  'neovim/nvim-lspconfig',
+  ft = {},
+  priotiry = 99,
+  dependencies = {
+    'williamboman/mason-lspconfig.nvim',
+  },
+}
+
+M.cmp = {
   'hrsh7th/nvim-cmp',
-  event = 'VeryLazy',
+  ft = {},
+  priotiry = 98,
   dependencies = {
     'neovim/nvim-lspconfig',
     'hrsh7th/cmp-nvim-lua',
@@ -48,10 +78,7 @@ return {
       }),
       sources = cmp.config.sources({
         { name = 'nvim_lsp' },
-        -- { name = 'vsnip' }, -- For vsnip users.
         { name = 'luasnip' }, -- For luasnip users.
-        -- { name = 'ultisnips' }, -- For ultisnips users.
-        -- { name = 'snippy' }, -- For snippy users.
       }, {
         { name = 'buffer' },
       })
@@ -61,3 +88,48 @@ return {
     require('cmp').setup(opts)
   end,
 }
+
+M.treesitter = {
+  'nvim-treesitter/nvim-treesitter',
+  ft = {},
+  priotiry = 97,
+  cmd = { "TSInstall", "TSBufEnable", "TSBufDisable", "TSModuleInfo" },
+  build = ':TSUpdate',
+  opts = {
+    ensure_installed = {},
+    sync_install = true,
+    highlight = { enable = true },
+    indent = { enable = true },
+  },
+  config = function(_, opts)
+    require('nvim-treesitter.configs').setup(opts)
+  end,
+}
+
+M.coform = {
+  'stevearc/conform.nvim',
+  ft = {},
+  priotiry = 96,
+  dependencies = {
+    'nvim-treesitter/nvim-treesitter'
+  },
+  opts = {
+    formatters_by_ft = {},
+    format_on_save = {
+      timeout_ms = 500,
+      lsp_fallback = true,
+    },
+  },
+}
+
+M.outline = {
+  'hedyhli/outline.nvim',
+  ft = {},
+  dependencies = {
+    'neovim/nvim-lspconfig'
+  },
+  keys = require('keymaps').outline,
+  config = true,
+}
+
+return M

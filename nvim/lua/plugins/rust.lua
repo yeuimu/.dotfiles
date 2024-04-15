@@ -1,4 +1,23 @@
-return {
+local mason = require('configs.comman').mason
+table.insert(mason.ft, 'rust')
+table.insert(mason.opts.ensure_installed, 'rust_analyzer')
+
+local lsp = require('configs.comman').lsp
+table.insert(lsp.ft, 'rust')
+
+local cmp = require('configs.comman').cmp
+table.insert(cmp.ft, 'rust')
+cmp.event = 'InsertEnter'
+
+local treesitter = require('configs.comman').treesitter
+table.insert(treesitter.ft, 'rust')
+table.insert(treesitter.opts.ensure_installed, 'rust')
+
+local conform = require('configs.comman').coform
+table.insert(conform.ft, 'rust')
+conform.opts.formatters_by_ft.rust = 'rustfmt'
+
+local rustaceanvim = {
   "mrcjkb/rustaceanvim",
   version = "^4", -- Recommended
   ft = { "rust" },
@@ -9,7 +28,7 @@ return {
   },
   opts = {
     server = {
-      capabilities = require('configs.lspconfig').capabilities,
+      capabilities = require('configs.lsp').capabilities,
       on_attach = function(_, bufnr)
         vim.keymap.set("n", "<leader>cR", function()
           vim.cmd.RustLsp("codeAction")
@@ -47,4 +66,24 @@ return {
   config = function(_, opts)
     vim.g.rustaceanvim = vim.tbl_deep_extend("keep", vim.g.rustaceanvim or {}, opts or {})
   end,
+}
+
+local outline = require('configs.comman').outline
+table.insert(outline.ft, 'rust')
+
+return {
+  -- mason
+  mason,
+  -- lsp
+  lsp,
+  -- cmp
+  cmp,
+  -- -- treesitter
+  treesitter,
+  -- -- formatting
+  conform,
+  -- rustaceanvim
+  rustaceanvim,
+  -- outline
+  outline,
 }
