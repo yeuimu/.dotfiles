@@ -1,6 +1,0 @@
-return {
-  coding = {
-    'lua',
-    'rust',
-  }
-}
