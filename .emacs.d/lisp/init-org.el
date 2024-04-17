@@ -157,45 +157,47 @@
   :ensure t
   :defer nil
   :config
-  (load-theme 'doom-tomorrow-day t))
+  (load-theme 'doom-one-light t))
 
 ;; Basic
-(setq org-startup-indented t
-      org-src-tab-acts-natively nil
+(setq
+      ;;org-startup-indented t
+      ;;org-src-tab-acts-natively nil
       org-hide-emphasis-markers t
       org-fontify-done-headline t
       org-hide-leading-stars nil
       org-pretty-entities t
-      org-agenda-show-inherited-tags nil)
+      ;;org-agenda-show-inherited-tags nili
+      )
 
 ;; Modern Org Mode theme
-(use-package org-modern
-  :ensure t
-  :init
-  (setopt org-modern-table-vertical 2)
-  (setopt org-modern-tag nil)
- ; (setopt org-modern-todo nil)
- ; (setopt org-modern-block-name nil)
- ; (setopt org-modern-keyword nil)
- ; (setopt org-modern-timestamp nil)
- ; (setopt org-modern-block-fringe nil)
-  :config (global-org-modern-mode 1))
+;;(use-package org-modern
+;;  :ensure t
+;;  :init
+;;  (setopt org-modern-table-vertical 2)
+;;  (setopt org-modern-tag nil)
+;;  (setopt org-modern-todo nil)
+;;  (setopt org-modern-block-name nil)
+;;  (setopt org-modern-keyword nil)
+;;  (setopt org-modern-timestamp nil)
+;;  (setopt org-modern-block-fringe nil)
+;;  :config (global-org-modern-mode 1))
 
-(use-package org-pretty-tags
-  :demand t
-  :config
-  (setq org-pretty-tags-surrogate-strings
-        (quote
-         (("org" . "ORG")
-          ("nvim" . "NVIM")
-          ("linux" . "LINUX")
-          ("arch" . "ARCH")
-          ("os" . "⚙️ ")
-          ("textbook" . "📚️")
-          ("resources" . "🔗")
-          ("chore" . "📝")
-          ("jp" . "🇯🇵"))))
-  (org-pretty-tags-global-mode))
+;;(use-package org-pretty-tags
+;;  :demand t
+;;  :config
+;;  (setq org-pretty-tags-surrogate-strings
+;;        (quote
+;;         (("org" . "ORG")
+;;          ("nvim" . "NVIM")
+;;          ("linux" . "LINUX")
+;;          ("arch" . "ARCH")
+;;          ("os" . "⚙️ ")
+;;          ("textbook" . "📚️")
+;;          ("resources" . "🔗")
+;;          ("chore" . "📝")
+;;          ("jp" . "🇯🇵"))))
+;;  (org-pretty-tags-global-mode))
 
 (setq custom-file "~/.emacs.d/lisp/custom.el")
 (load custom-file)
