@@ -11,25 +11,25 @@
   ; auto linefeed on org mode
   (add-hook 'org-mode-hook (lambda () (setq truncate-lines nil)))
 
-  (setq org-agenda-files '("~/Dropbox/org/todo.org"
-                           "~/Dropbox/org/inbox.org")
+  (setq org-agenda-files '("~/Documents/org/todo.org"
+                           "~/Documents/org/inbox.org")
         org-capture-templates '(
-                                ("i" "inbox" entry (file "~/Dropbox/org/inbox.org")
+                                ("i" "inbox" entry (file "~/Documents/org/inbox.org")
                                  "* %^{headline} %^g \n\n%? \n\n%U" :empty-lines 1)
-                                ("t" "todo" entry (file+datetree "~/Dropbox/org/todo.org")
+                                ("t" "todo" entry (file+datetree "~/Documents/org/todo.org")
                                  "* TODO [#B] %U %i%?" :empty-lines 1)
-                                ("s" "someday" entry (file+headline "~/Dropbox/org/maybe.org" "someday")
+                                ("s" "someday" entry (file+headline "~/Documents/org/maybe.org" "someday")
                                  "* [#C] %U %i%?" :empty-lines 1)
-                                ("r" "reference" entry (file+headline "~/Dropbox/org/reference.org" "reference")
+                                ("r" "reference" entry (file+headline "~/Documents/org/reference.org" "reference")
                                  "* [#C] %U %i%?" :empty-lines 1)
-                                ("e" "repeat" entry (file+headline "~/Dropbox/org/repeat.org" "repeat")
+                                ("e" "repeat" entry (file+headline "~/Documents/org/repeat.org" "repeat")
                                  "* [#C] %U %i%?" :empty-lines 1))
         org-refile-targets '(
-                             ("~/Dropbox/org/inbox.org" :maxlevel . 2)
-			                       ("~/Dropbox/org/maybe.org" :maxlevel . 9)
-			                       ("~/Dropbox/org/reference.org" :maxlevel . 9)
-			                       ("~/Dropbox/org/todo.org" :maxlevel . 9)
-			                       ("~/Dropbox/org/project.org" :maxlevel . 9)
+                             ("~/Documents/org/inbox.org" :maxlevel . 2)
+			                       ("~/Documents/org/maybe.org" :maxlevel . 9)
+			                       ("~/Documents/org/reference.org" :maxlevel . 9)
+			                       ("~/Documents/org/todo.org" :maxlevel . 9)
+			                       ("~/Documents/org/project.org" :maxlevel . 9)
 			                       )
         org-refile-use-outline-path 'file
         org-outline-path-complete-in-steps nil
@@ -108,6 +108,9 @@
   ; search word
   (evil-define-key '(normal ) org-mode-map
     (kbd "<leader>ew") 'fanyi-dwim2)
+  ; search word
+  (evil-define-key '(normal ) org-mode-map
+    (kbd "<leader>et") 'modus-themes-toggle)
 
   ;; Project
   ; find file
@@ -126,7 +129,7 @@
 (defun he/org-refile-to-datetree (&optional bfn)
   (interactive)
   (require 'org-datetree)
-  (let* ((bfn (or bfn (find-file-noselect (expand-file-name "~/Dropbox/org/todo.org"))))
+  (let* ((bfn (or bfn (find-file-noselect (expand-file-name "~/Documents/org/todo.org"))))
      (datetree-date (he/org-read-datetree-date (org-read-date t nil))))
     (org-refile nil nil (list nil (buffer-file-name bfn) nil
                   (with-current-buffer bfn
@@ -142,7 +145,7 @@
             "calc" "asymptote" "dot" "gnuplot" "ledger" "lilypond" "mscgen"
             "octave" "oz" "plantuml" "R" "sass" "screen" "sql" "awk" "ditaa"
             "haskell" "latex" "lisp" "matlab" "ocaml" "org" "perl" "ruby"
-            "scheme" "sqlite" "lua")))
+            "Scheme" "sqlite" "lua")))
      (list (ido-completing-read "Source code type: " src-code-types))))
   (progn
     (newline-and-indent)
@@ -153,11 +156,11 @@
     (org-edit-src-code)))
 
 ;; Theme
-(use-package doom-themes
+(use-package modus-themes
   :ensure t
   :defer nil
   :config
-  (load-theme 'doom-one-light t))
+  (load-theme 'modus-operandi-deuteranopia t))
 
 ;; Basic
 (setq
@@ -171,9 +174,9 @@
       )
 
 ;; Modern Org Mode theme
-;;(use-package org-modern
-;;  :ensure t
-;;  :init
+(use-package org-modern
+  :ensure t
+  :init
 ;;  (setopt org-modern-table-vertical 2)
 ;;  (setopt org-modern-tag nil)
 ;;  (setopt org-modern-todo nil)
@@ -181,23 +184,7 @@
 ;;  (setopt org-modern-keyword nil)
 ;;  (setopt org-modern-timestamp nil)
 ;;  (setopt org-modern-block-fringe nil)
-;;  :config (global-org-modern-mode 1))
-
-;;(use-package org-pretty-tags
-;;  :demand t
-;;  :config
-;;  (setq org-pretty-tags-surrogate-strings
-;;        (quote
-;;         (("org" . "ORG")
-;;          ("nvim" . "NVIM")
-;;          ("linux" . "LINUX")
-;;          ("arch" . "ARCH")
-;;          ("os" . "⚙️ ")
-;;          ("textbook" . "📚️")
-;;          ("resources" . "🔗")
-;;          ("chore" . "📝")
-;;          ("jp" . "🇯🇵"))))
-;;  (org-pretty-tags-global-mode))
+  :config (global-org-modern-mode 1))
 
 (setq custom-file "~/.emacs.d/lisp/custom.el")
 (load custom-file)
