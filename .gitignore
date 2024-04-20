@@ -14,6 +14,8 @@
 .emacs.d/org-generic-id-locations
 .emacs.d/eshell
 .emacs.d/recentf
+.emacs.d/.org-id-locations
+.emacs.d/org-roam.db
 *.elc
 *~
 
