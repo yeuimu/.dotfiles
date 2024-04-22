@@ -1,5 +1,6 @@
 local langs = {
   rust = {
+    ft = 'rust',
     lsp = 'rust-analyzer',
     lspconfig = 'rust_analyzer',
     formatter = 'rustfmt',
@@ -28,6 +29,7 @@ local langs = {
     }
   },
   lua = {
+    ft = 'lua',
     lsp = 'lua-language-server',
     lspconfig = 'lua_ls',
     formatter = 'stylua',
@@ -49,14 +51,22 @@ local langs = {
       },
     }
   },
-  markdown = {},
-  markdown_inline = {},
-
+  markdown = {
+    ft = 'markdown',
+  },
+  markdown_inline = {
+    ft = false,
+  },
+  commonlisp = {
+    ft = 'lisp'
+  }
 }
 
 local lang_fts = {}
-for lang, _ in pairs(langs) do
-  table.insert(lang_fts, lang)
+for lang, value in pairs(langs) do
+  if value.ft then
+    table.insert(lang_fts, lang)
+  end
 end
 
 return {
@@ -166,7 +176,7 @@ return {
       local lspconfig = require('lspconfig')
 
       for _, lang in pairs(langs) do
-        if next(lang) ~= nil then
+        if lang.lspconfig ~= nil then
           local on_attach = opts.on_attach
           local capabilities = opts.capabilities
           local setting = lang.setting
@@ -300,6 +310,7 @@ return {
   -- treesitter
   {
     'nvim-treesitter/nvim-treesitter',
+    ft = lang_fts,
     cmd = { "TSInstall", "TSBufEnable", "TSBufDisable", "TSModuleInfo" },
     build = ':TSUpdate',
     opts = function()
