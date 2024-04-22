@@ -68,7 +68,7 @@
     (kbd "<leader>g;") 'evil-ex) 
   ; open agency
   (evil-define-key '(normal ) org-mode-map
-    (kbd "<leader>ga") 'org-agenda-list)
+    (kbd "<leader>ga") 'org-agenda)
   ; set property
   (evil-define-key '(normal ) org-mode-map
     (kbd "<leader>gP") 'org-set-property)
@@ -200,7 +200,7 @@
   :ensure t
   :defer nil
   :config
-  (load-theme 'doom-one t))
+  (load-theme 'doom-one-light t))
 
 ;; Basic
 (setq
