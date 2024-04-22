@@ -13,6 +13,8 @@
   (setq evil-want-keybinding nil)
   (evil-mode 1))
 
+
+
 (use-package which-key
   :defer nil
   :config
@@ -44,6 +46,17 @@
    :map minibuffer-local-map
    ("C-r" . counsel-minibuffer-history)))
 
+(use-package orderless
+  :ensure t
+  :custom
+  (completion-styles
+   '(orderless basic))
+  (completion-category-overrides
+   '((file
+      (styles basic partial-completion)))))
+
+(setq ivy-re-builders-alist '((t . orderless-ivy-re-builder)))
+(add-to-list 'ivy-highlight-functions-alist '(orderless-ivy-re-builder . orderless-ivy-highlight))
 
 (provide 'init-plugins)
 ;;; init-plugins.el ends here

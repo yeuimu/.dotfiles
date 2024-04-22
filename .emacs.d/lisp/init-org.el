@@ -187,13 +187,6 @@
   (require 'org-roam-dailies)  ;; 启用日记功能
   (org-roam-db-autosync-mode)) ;; 启动时自动同步数据库
 
-(use-package orderless ;; 无序搜索
-  :ensure t
-  :custom
-  (completion-styles '(orderless basic))
-  (completion-category-defaults nil)
-  (completion-category-overrides '((file (styles partial-completion)))))
-
 (use-package org-roam-ui
   :ensure t ;; 自动安装
   :after org-roam
@@ -203,11 +196,11 @@
   (org-roam-ui-update-on-save t))
 
 ;; Theme
-(use-package modus-themes
+(use-package doom-themes
   :ensure t
   :defer nil
   :config
-  (load-theme 'modus-vivendi-deuteranopia t))
+  (load-theme 'doom-one t))
 
 ;; Basic
 (setq
@@ -221,9 +214,9 @@
       )
 
 ;; Modern Org Mode theme
-(use-package org-modern
-  :ensure t
-  :init
+;;(use-package org-modern
+;;  :ensure t
+;;  :init
 ;;  (setopt org-modern-table-vertical 2)
 ;;  (setopt org-modern-tag nil)
 ;;  (setopt org-modern-todo nil)
@@ -231,7 +224,7 @@
 ;;  (setopt org-modern-keyword nil)
 ;;  (setopt org-modern-timestamp nil)
 ;;  (setopt org-modern-block-fringe nil)
-  :config (global-org-modern-mode 1))
+;;  :config (global-org-modern-mode 1))
 
 (setq custom-file "~/.emacs.d/lisp/custom.el")
 (load custom-file)
