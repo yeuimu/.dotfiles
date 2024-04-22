@@ -8,129 +8,133 @@
   :config
   ;;; Config
   ;; General
-  ; auto linefeed on org mode
+					; auto linefeed on org mode
   (add-hook 'org-mode-hook (lambda () (setq truncate-lines nil)))
 
   (setq org-agenda-files '("~/Documents/org/todo.org"
                            "~/Documents/org/inbox.org")
 	org-agenda-time-grid (quote ((daily today require-timed)
-                                   (300
-                                    600
-                                    900
-                                    1200
-                                    1500
-                                    1800
-                                    2100
-                                    2400)
-                                   "......"
-                                   "-----------------------------------------------------"
-                                   ))
-        org-capture-templates '(
-                                ("i" "inbox" entry (file "~/Documents/org/inbox.org")
-                                 "* %^{headline} %^g \n\n%? \n\n%U" :empty-lines 1)
-                                ("t" "todo" entry (file+datetree "~/Documents/org/todo.org")
-                                 "* TODO [#B] %U %i%?" :empty-lines 1)
-                                ("s" "someday" entry (file+headline "~/Documents/org/maybe.org" "someday")
-                                 "* [#C] %U %i%?" :empty-lines 1)
-                                ("r" "reference" entry (file+headline "~/Documents/org/reference.org" "reference")
-                                 "* [#C] %U %i%?" :empty-lines 1)
-                                ("e" "repeat" entry (file+headline "~/Documents/org/repeat.org" "repeat")
-                                 "* [#C] %U %i%?" :empty-lines 1))
-        org-refile-targets '(
-                             ("~/Documents/org/inbox.org" :maxlevel . 2)
-			                       ("~/Documents/org/maybe.org" :maxlevel . 9)
-			                       ("~/Documents/org/reference.org" :maxlevel . 9)
-			                       ("~/Documents/org/todo.org" :maxlevel . 9)
-			                       ("~/Documents/org/project.org" :maxlevel . 9)
-			                       )
-        org-refile-use-outline-path 'file
-        org-outline-path-complete-in-steps nil
-        org-refile-allow-creating-parent-nodes 'confirm
-        org-todo-keywords '((sequence "TODO(t/!)" "DOING(i/!)" "|" "DONE(d@/!)" "CANCEL(c@/!)"))
-        org-todo-keyword-faces '(
-                                 ("DOING" . (:foreground "#eec78e" :weight bold))
-                                 ("CANCEL" . (:foreground "#4C566A" :weight bold)))
-        org-enforce-todo-dependencies t
-        )
- 
+                                     (300
+                                      600
+                                      900
+                                      1200
+                                      1500
+                                      1800
+                                      2100
+                                      2400)
+                                     "......"
+                                     "-----------------------------------------------------"
+                                     ))
+	org-agenda-custom-commands '(("u" "Unscheduled TODOs"
+				      ((tags-todo "-SCHEDULED/!TODO"
+						  ((org-agenda-overriding-header "Unscheduled TODOs"))))))
+  org-capture-templates '(
+                          ("i" "inbox" entry (file "~/Documents/org/inbox.org")
+                           "* %^{headline} %^g \n\n%? \n\n%U" :empty-lines 1)
+                          ("t" "todo" entry (file+datetree "~/Documents/org/todo.org")
+                           "* TODO [#B] %U %i%?" :empty-lines 1)
+                          ("s" "someday" entry (file+headline "~/Documents/org/maybe.org" "someday")
+                           "* [#C] %U %i%?" :empty-lines 1)
+                          ("r" "reference" entry (file+headline "~/Documents/org/reference.org" "reference")
+                           "* [#C] %U %i%?" :empty-lines 1)
+                          ("e" "repeat" entry (file+headline "~/Documents/org/repeat.org" "repeat")
+                           "* [#C] %U %i%?" :empty-lines 1))
+  org-refile-targets '(
+                       ("~/Documents/org/inbox.org" :maxlevel . 2)
+		       ("~/Documents/org/maybe.org" :maxlevel . 9)
+		       ("~/Documents/org/reference.org" :maxlevel . 9)
+		       ("~/Documents/org/todo.org" :maxlevel . 9)
+		       ("~/Documents/org/project.org" :maxlevel . 9)
+		       )
+  org-refile-use-outline-path 'file
+  org-outline-path-complete-in-steps nil
+  org-refile-allow-creating-parent-nodes 'confirm
+  org-todo-keywords '((sequence "TODO(t/!)" "DOING(i/!)" "SCHEDLED(s/!)" "|" "DONE(d@/!)" "CANCEL(c@/!)"))
+  org-todo-keyword-faces '(
+                           ("DOING" . (:foreground "#eec78e" :weight bold))
+                           ("CANCEL" . (:foreground "#4C566A" :weight bold))
+                           ("SCHEDLED" . (:foreground "#6495ED" :weight bold)))
+  org-enforce-todo-dependencies t
+  )
+
   ;;; Shortcutkey setting
 
-  ;; Leader
-  (evil-define-key '(normal visual motion) org-mode-map (kbd "SPC") nil) 
-  (evil-set-leader '(normal insert motion) (kbd "SPC"))
+;; Leader
+(evil-define-key '(normal visual motion) org-mode-map (kbd "SPC") nil) 
+(evil-set-leader '(normal insert motion) (kbd "SPC"))
 
   ;;; Basic opt
-  ;; Cycling org-cycle
-  (evil-define-key 'normal org-mode-map
-    (kbd "TAB") 'org-cycle)
-  ; Execute Command
-   (evil-define-key '(normal ) org-mode-map
-    (kbd "<leader>g;") 'evil-ex) 
-  ; open agency
-  (evil-define-key '(normal ) org-mode-map
-    (kbd "<leader>ga") 'org-agenda)
-  ; set property
-  (evil-define-key '(normal ) org-mode-map
-    (kbd "<leader>gP") 'org-set-property)
-  ;  code block
-  (evil-define-key '(normal ) org-mode-map
-    (kbd "<leader>gc") 'org--src-block)
-  ; tag view
-  (evil-define-key '(normal ) org-mode-map
-    (kbd "<leader>gt") 'org-tags-view)
-  ; Headline
-  ; move up headline
-  (evil-define-key '(normal ) org-mode-map
-    (kbd "<leader>gK") 'org-move-subtree-up)
-  ; move down headline
-  (evil-define-key '(normal ) org-mode-map
-    (kbd "<leader>gJ") 'org-move-subtree-down)
-  ; Capture
-  ; open capture
-  (evil-define-key '(normal ) org-mode-map
-    (kbd "<leader>gp") 'org-capture)
+;; Cycling org-cycle
+(evil-define-key 'normal org-mode-map
+  (kbd "TAB") 'org-cycle)
+					; Execute Command
+(evil-define-key '(normal ) org-mode-map
+  (kbd "<leader>g;") 'evil-ex) 
+					; open agency
+(evil-define-key '(normal ) org-mode-map
+  (kbd "<leader>ga") 'org-agenda)
+					; set property
+(evil-define-key '(normal ) org-mode-map
+  (kbd "<leader>gP") 'org-set-property)
+					;  code block
+(evil-define-key '(normal ) org-mode-map
+  (kbd "<leader>gc") 'org--src-block)
+					; tag view
+(evil-define-key '(normal ) org-mode-map
+  (kbd "<leader>gt") 'org-tags-view)
+					; Headline
+					; move up headline
+(evil-define-key '(normal ) org-mode-map
+  (kbd "<leader>gK") 'org-move-subtree-up)
+					; move down headline
+(evil-define-key '(normal ) org-mode-map
+  (kbd "<leader>gJ") 'org-move-subtree-down)
+					; Capture
+					; open capture
+(evil-define-key '(normal ) org-mode-map
+  (kbd "<leader>gp") 'org-capture)
 
-  ;; Refile
-  ; refile to targets
-  (evil-define-key 'normal org-mode-map
-    (kbd "<leader>rr") 'org-refile)
-  ; refile to todo.org
-  (evil-define-key 'normal org-mode-map
-    (kbd "<leader>rt") 'he/org-refile-to-datetree)
+;; Refile
+					; refile to targets
+(evil-define-key 'normal org-mode-map
+  (kbd "<leader>rr") 'org-refile)
+					; refile to todo.org
+(evil-define-key 'normal org-mode-map
+  (kbd "<leader>rt") 'he/org-refile-to-datetree)
 
-  ;; Clock
-  ; start
-  (evil-define-key '(normal ) org-mode-map
-    (kbd "<leader>cs") 'org-clock-in)
-  ; end
-  (evil-define-key '(normal ) org-mode-map
-    (kbd "<leader>ce") 'org-clock-out)
-  ; cancel
-  (evil-define-key '(normal ) org-mode-map
-    (kbd "<leader>cc") 'org-clock-cancel)
-  ; goto
-  (evil-define-key '(normal ) org-mode-map
-    (kbd "<leader>cg") 'org-clock-goto)
-  ; report
-  (evil-define-key '(normal ) org-mode-map
-    (kbd "<leader>cr") 'org-clock-report)
+;; Clock
+					; start
+(evil-define-key '(normal ) org-mode-map
+  (kbd "<leader>cs") 'org-clock-in)
+					; end
+(evil-define-key '(normal ) org-mode-map
+  (kbd "<leader>ce") 'org-clock-out)
+					; cancel
+(evil-define-key '(normal ) org-mode-map
+  (kbd "<leader>cc") 'org-clock-cancel)
+					; goto
+(evil-define-key '(normal ) org-mode-map
+  (kbd "<leader>cg") 'org-clock-goto)
+					; report
+(evil-define-key '(normal ) org-mode-map
+  (kbd "<leader>cr") 'org-clock-report)
 
-  ;; Other
-  ; Dict
-  ; search word
-  (evil-define-key '(normal ) org-mode-map
-    (kbd "<leader>ew") 'fanyi-dwim2)
-  ; search word
-  (evil-define-key '(normal ) org-mode-map
-    (kbd "<leader>et") 'modus-themes-toggle)
+;; Other
+					; Dict
+					; search word
+(evil-define-key '(normal ) org-mode-map
+  (kbd "<leader>ew") 'fanyi-dwim2)
+					; search word
+(evil-define-key '(normal ) org-mode-map
+  (kbd "<leader>et") 'modus-themes-toggle)
 
-  ;; Project
-  ; find file
-  (evil-define-key '(normal ) org-mode-map
-    (kbd "<leader>pf") 'project-find-file)
-  ; switch project
-  (evil-define-key '(normal ) org-mode-map
-    (kbd "<leader>pw") 'project-switch-project)
+;; Project
+					; find file
+(evil-define-key '(normal ) org-mode-map
+  (kbd "<leader>pf") 'project-find-file)
+					; switch project
+(evil-define-key '(normal ) org-mode-map
+  (kbd "<leader>pw") 'project-switch-project)
 )
 
 (defun he/org-read-datetree-date (d)
@@ -142,12 +146,12 @@
   (interactive)
   (require 'org-datetree)
   (let* ((bfn (or bfn (find-file-noselect (expand-file-name "~/Documents/org/todo.org"))))
-     (datetree-date (he/org-read-datetree-date (org-read-date t nil))))
+	 (datetree-date (he/org-read-datetree-date (org-read-date t nil))))
     (org-refile nil nil (list nil (buffer-file-name bfn) nil
-                  (with-current-buffer bfn
-                (save-excursion
-                  (org-datetree-find-date-create datetree-date)
-                  (point)))))))
+			      (with-current-buffer bfn
+				(save-excursion
+				  (org-datetree-find-date-create datetree-date)
+				  (point)))))))
 
 (defun org-insert-src-block (src-code-type)
   "Insert a `SRC-CODE-TYPE' type source code block in org-mode."
@@ -204,14 +208,14 @@
 
 ;; Basic
 (setq
-      ;;org-startup-indented t
-      ;;org-src-tab-acts-natively nil
-      org-hide-emphasis-markers t
-      org-fontify-done-headline t
-      org-hide-leading-stars nil
-      org-pretty-entities t
-      ;;org-agenda-show-inherited-tags nili
-      )
+ ;;org-startup-indented t
+ ;;org-src-tab-acts-natively nil
+ org-hide-emphasis-markers t
+ org-fontify-done-headline t
+ org-hide-leading-stars nil
+ org-pretty-entities t
+ ;;org-agenda-show-inherited-tags nili
+ )
 
 ;; Modern Org Mode theme
 ;;(use-package org-modern
