@@ -47,6 +47,6 @@ map('v', '>', '>gv')
 map('n', '<leader>l', '<cmd>Lazy<cr>', { desc = 'Lazy' })
 
 -- Quite
-map({ 'i', 'v' }, '<C-z>', '<cmd>Quit<cr>', { desc = 'Quit' })
+map({ 'i', 'v' }, '<A-q>', '<esc>', { desc = 'Quit' })
 
 return M
