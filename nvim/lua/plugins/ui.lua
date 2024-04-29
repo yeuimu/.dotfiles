@@ -8,7 +8,14 @@ return {
       vim.cmd.colorscheme('tokyonight')
     end,
   },
-
+  -- {
+  --   'kepano/flexoki-neovim',
+  --   name = 'flexoki',
+  --   lazy = false,
+  --   config = function()
+  --     vim.cmd('colorscheme flexoki-dark')
+  --   end
+  -- },
   -- nvim-tree
   {
     'nvim-tree/nvim-tree.lua',
@@ -115,8 +122,18 @@ return {
   {
     'lewis6991/gitsigns.nvim',
     event = "User Git",
-    config = function()
-      require('gitsigns').setup()
+    opts = {
+      signs = {
+        add          = { text = ' ' },
+        change       = { text = ' ' },
+        delete       = { text = ' ' },
+        topdelete    = { text = ' ' },
+        changedelete = { text = ' ' },
+        untracked    = { text = ' ' },
+      },
+    },
+    config = function(_, opts)
+      require('gitsigns').setup(opts)
     end,
   },
 

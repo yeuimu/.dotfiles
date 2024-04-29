@@ -59,6 +59,9 @@ local langs = {
   },
   commonlisp = {
     ft = 'lisp'
+  },
+  vimdoc = {
+    ft = false,
   }
 }
 
@@ -73,6 +76,7 @@ return {
   -- mason
   {
     'williamboman/mason.nvim',
+    pin = true,
     cmd = { "Mason", "MasonInstall", "MasonInstallAll", "MasonUpdate" },
     opts = function()
       local ensure_installed = {}
@@ -118,6 +122,7 @@ return {
   -- lspconfig
   {
     'neovim/nvim-lspconfig',
+    pin = true,
     opts = function()
       local capabilities = vim.lsp.protocol.make_client_capabilities()
 
@@ -203,6 +208,7 @@ return {
   {
     'hrsh7th/nvim-cmp',
     event = 'User Cmp',
+    pin = true,
     dependencies = {
       'neovim/nvim-lspconfig',
       'hrsh7th/cmp-nvim-lua',
@@ -213,6 +219,7 @@ return {
       {
         -- snippet plugin
         "L3MON4D3/LuaSnip",
+        pin = true,
         dependencies = "rafamadriz/friendly-snippets",
         opts = { history = true, updateevents = "TextChanged,TextChangedI" },
         config = function(_, opts)
@@ -245,6 +252,7 @@ return {
       },
       {
         "windwp/nvim-autopairs",
+        pin = true,
         opts = {
           fast_wrap = {},
           disable_filetype = { "TelescopePrompt", "vim" },
@@ -335,6 +343,8 @@ return {
   -- conform
   {
     'stevearc/conform.nvim',
+    pin = true,
+    ft = lang_fts,
     dependencies = {
       'nvim-treesitter/nvim-treesitter'
     },
@@ -356,6 +366,8 @@ return {
   -- outline
   {
     'hedyhli/outline.nvim',
+    pin = true,
+    ft = lang_fts,
     dependencies = {
       'neovim/nvim-lspconfig'
     },
@@ -377,20 +389,22 @@ return {
   },
 
   -- rust
-  {
-    "mrcjkb/rustaceanvim",
-    version = "^4", -- Recommended
-    ft = { "rust" },
-    dependencies = {
-      'hedyhli/outline.nvim',
-      'stevearc/conform.nvim',
-    },
-    config = true,
-  },
+  -- {
+  --   "mrcjkb/rustaceanvim",
+  --   version = "^4", -- Recommended
+  --   ft = { "rust" },
+  --   dependencies = {
+  --     'hedyhli/outline.nvim',
+  --     'stevearc/conform.nvim',
+  --   },
+  --   config = function()
+  --   end
+  -- },
 
   -- markdown
   {
     'lukas-reineke/headlines.nvim',
+    pin = true,
     ft = { 'markdown' },
     dependencies = {
       'nvim-treesitter/nvim-treesitter'
