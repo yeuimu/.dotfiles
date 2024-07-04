@@ -62,6 +62,9 @@ local langs = {
   },
   vimdoc = {
     ft = false,
+  },
+  vue = {
+    ft = 'vue',
   }
 }
 
@@ -388,18 +391,8 @@ return {
     config = true,
   },
 
-  -- rust
-  -- {
-  --   "mrcjkb/rustaceanvim",
-  --   version = "^4", -- Recommended
-  --   ft = { "rust" },
-  --   dependencies = {
-  --     'hedyhli/outline.nvim',
-  --     'stevearc/conform.nvim',
-  --   },
-  --   config = function()
-  --   end
-  -- },
+  -- vue
+
 
   -- markdown
   {

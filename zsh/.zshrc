@@ -30,11 +30,10 @@ export ftp_proxy=$proxy
 export no_proxy="localhost, 127.0.0.1, ::1"
 
 # env 
+
 export PATH=$PATH:~/.local/bin
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-export PATH="$HOME/.cargo/bin/:$PATH"
+
+export PATH="$HOME/.cargo/bin/:$HOME/.cargo/env:$PATH"
 
 # GDK & QT
 export GDK_SCALE=2
@@ -53,3 +52,7 @@ tsj(){
 }
 
 set -o vi
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
