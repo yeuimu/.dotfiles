@@ -1,3 +1,17 @@
+## Installation
+For Arch
+```sh
+sudo pacman -Sy nvim cargo
+```
+
+Then install node version and rust version
+```sh
+rustup default stable
+nvm install --lts
+nvm alias default lts/*
+```
+
+And type `:MasonInstallAll` to install lsp or formatter.
 ## Plugins
 
 ```

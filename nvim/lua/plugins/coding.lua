@@ -1,9 +1,9 @@
 local langs = {
   rust = {
-    ft = 'rust',
-    lsp = 'rust-analyzer',
-    lspconfig = 'rust_analyzer',
-    formatter = 'rustfmt',
+    ft = "rust",
+    lsp = "rust-analyzer",
+    lspconfig = "rust_analyzer",
+    formatter = "rustfmt",
     setting = {
       ["rust-analyzer"] = {
         cargo = {
@@ -26,13 +26,13 @@ local langs = {
           },
         },
       },
-    }
+    },
   },
   lua = {
-    ft = 'lua',
-    lsp = 'lua-language-server',
-    lspconfig = 'lua_ls',
-    formatter = 'stylua',
+    ft = "lua",
+    lsp = "lua-language-server",
+    lspconfig = "lua_ls",
+    formatter = "stylua",
     setting = {
       Lua = {
         diagnostics = {
@@ -49,35 +49,35 @@ local langs = {
           preloadFileSize = 10000,
         },
       },
-    }
+    },
   },
   markdown = {
-    ft = 'markdown',
+    ft = "markdown",
   },
   markdown_inline = {
     ft = false,
   },
   commonlisp = {
-    ft = 'lisp'
+    ft = "lisp",
   },
   vimdoc = {
     ft = false,
   },
   vue = {
-    ft = 'vue',
+    ft = "vue",
   },
   python = {
-    ft = 'python',
-    lsp = 'pyright',
-    lspconfig = 'pyright',
-    formatter = 'autopep8',
+    ft = "python",
+    lsp = "pyright",
+    lspconfig = "pyright",
+    formatter = "autopep8",
   },
   nix = {
-    ft = 'nix',
-    lsp = 'nil',
-    lspconfig = 'nil_ls',
-    formatter = 'nixfmt',
-  }
+    ft = "nix",
+    lsp = "nil",
+    lspconfig = "nil_ls",
+    formatter = "nixfmt",
+  },
 }
 
 local lang_fts = {}
@@ -90,14 +90,16 @@ end
 return {
   -- mason
   {
-    'williamboman/mason.nvim',
+    "williamboman/mason.nvim",
     pin = true,
     cmd = { "Mason", "MasonInstall", "MasonInstallAll", "MasonUpdate" },
     opts = function()
       local ensure_installed = {}
       for _, lang in pairs(langs) do
         table.insert(ensure_installed, lang.lsp)
-        table.insert(ensure_installed, lang.formatter)
+        if lang.formatter ~= "nixfmt" then
+          table.insert(ensure_installed, lang.formatter)
+        end
       end
 
       return {
@@ -131,12 +133,12 @@ return {
           vim.cmd("MasonInstall " .. table.concat(opts.ensure_installed, " "))
         end
       end, {})
-    end
+    end,
   },
 
   -- lspconfig
   {
-    'neovim/nvim-lspconfig',
+    "neovim/nvim-lspconfig",
     pin = true,
     opts = function()
       local capabilities = vim.lsp.protocol.make_client_capabilities()
@@ -164,27 +166,27 @@ return {
           vim.api.nvim_buf_set_option(bufnr, ...)
         end
 
-        buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
+        buf_set_option("omnifunc", "v:lua.vim.lsp.omnifunc")
 
         -- Mappings.
         local opts = { buffer = bufnr, noremap = true, silent = true }
-        vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
-        vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
-        vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
-        vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts)
-        vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, opts)
-        vim.keymap.set('n', '<space>wa', vim.lsp.buf.add_workspace_folder, opts)
-        vim.keymap.set('n', '<space>wr', vim.lsp.buf.remove_workspace_folder, opts)
-        vim.keymap.set('n', '<space>wl', function()
+        vim.keymap.set("n", "gD", vim.lsp.buf.declaration, opts)
+        vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
+        vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
+        vim.keymap.set("n", "gi", vim.lsp.buf.implementation, opts)
+        vim.keymap.set("n", "<C-k>", vim.lsp.buf.signature_help, opts)
+        vim.keymap.set("n", "<space>wa", vim.lsp.buf.add_workspace_folder, opts)
+        vim.keymap.set("n", "<space>wr", vim.lsp.buf.remove_workspace_folder, opts)
+        vim.keymap.set("n", "<space>wl", function()
           print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
         end, opts)
-        vim.keymap.set('n', '<space>D', vim.lsp.buf.type_definition, opts)
-        vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, opts)
-        vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
-        vim.keymap.set('n', '<space>e', vim.diagnostic.open_float, opts)
-        vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, opts)
-        vim.keymap.set('n', ']d', vim.diagnostic.goto_next, opts)
-        vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist, opts)
+        vim.keymap.set("n", "<space>D", vim.lsp.buf.type_definition, opts)
+        vim.keymap.set("n", "<space>rn", vim.lsp.buf.rename, opts)
+        vim.keymap.set("n", "gr", vim.lsp.buf.references, opts)
+        vim.keymap.set("n", "<space>e", vim.diagnostic.open_float, opts)
+        vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, opts)
+        vim.keymap.set("n", "]d", vim.diagnostic.goto_next, opts)
+        vim.keymap.set("n", "<space>q", vim.diagnostic.setloclist, opts)
       end
 
       return {
@@ -193,7 +195,7 @@ return {
       }
     end,
     config = function(_, opts)
-      local lspconfig = require('lspconfig')
+      local lspconfig = require "lspconfig"
 
       for _, lang in pairs(langs) do
         if lang.lspconfig ~= nil then
@@ -205,29 +207,29 @@ return {
         end
       end
 
-      vim.api.nvim_create_autocmd('InsertEnter', {
+      vim.api.nvim_create_autocmd("InsertEnter", {
         once = true,
         callback = function()
           vim.api.nvim_exec_autocmds("User", {
-            pattern = "Cmp"
+            pattern = "Cmp",
           })
         end,
       })
-    end
+    end,
   },
 
   -- cmp
   {
-    'hrsh7th/nvim-cmp',
-    event = 'User Cmp',
+    "hrsh7th/nvim-cmp",
+    event = "User Cmp",
     pin = true,
     dependencies = {
-      'neovim/nvim-lspconfig',
-      'hrsh7th/cmp-nvim-lua',
-      'hrsh7th/cmp-nvim-lsp',
-      'hrsh7th/cmp-buffer',
-      'hrsh7th/cmp-path',
-      'hrsh7th/cmp-cmdline',
+      "neovim/nvim-lspconfig",
+      "hrsh7th/cmp-nvim-lua",
+      "hrsh7th/cmp-nvim-lsp",
+      "hrsh7th/cmp-buffer",
+      "hrsh7th/cmp-path",
+      "hrsh7th/cmp-cmdline",
       {
         -- snippet plugin
         "L3MON4D3/LuaSnip",
@@ -253,8 +255,8 @@ return {
           vim.api.nvim_create_autocmd("InsertLeave", {
             callback = function()
               if
-                  require("luasnip").session.current_nodes[vim.api.nvim_get_current_buf()]
-                  and not require("luasnip").session.jump_active
+                require("luasnip").session.current_nodes[vim.api.nvim_get_current_buf()]
+                and not require("luasnip").session.jump_active
               then
                 require("luasnip").unlink_current()
               end
@@ -279,23 +281,23 @@ return {
       },
     },
     opts = function()
-      local cmp = require('cmp')
-      local luasnip = require('luasnip')
+      local cmp = require "cmp"
+      local luasnip = require "luasnip"
       return {
         snippet = {
           expand = function(args)
             luasnip.lsp_expand(args.body)
           end,
         },
-        mapping = cmp.mapping.preset.insert({
-          ['<C-u>'] = cmp.mapping.scroll_docs(-4),
-          ['<C-d>'] = cmp.mapping.scroll_docs(4),
-          ['<C-Space>'] = cmp.mapping.complete(),
-          ['<CR>'] = cmp.mapping.confirm {
+        mapping = cmp.mapping.preset.insert {
+          ["<C-u>"] = cmp.mapping.scroll_docs(-4),
+          ["<C-d>"] = cmp.mapping.scroll_docs(4),
+          ["<C-Space>"] = cmp.mapping.complete(),
+          ["<CR>"] = cmp.mapping.confirm {
             behavior = cmp.ConfirmBehavior.Replace,
             select = true,
           },
-          ['<Tab>'] = cmp.mapping(function(fallback)
+          ["<Tab>"] = cmp.mapping(function(fallback)
             if cmp.visible() then
               cmp.select_next_item()
             elseif luasnip.expand_or_jumpable() then
@@ -303,8 +305,8 @@ return {
             else
               fallback()
             end
-          end, { 'i', 's' }),
-          ['<S-Tab>'] = cmp.mapping(function(fallback)
+          end, { "i", "s" }),
+          ["<S-Tab>"] = cmp.mapping(function(fallback)
             if cmp.visible() then
               cmp.select_prev_item()
             elseif luasnip.jumpable(-1) then
@@ -312,27 +314,30 @@ return {
             else
               fallback()
             end
-          end, { 'i', 's' }),
-        }),
+          end, { "i", "s" }),
+        },
         sources = cmp.config.sources({
-          { name = 'nvim_lsp' },
-          { name = 'luasnip' }, -- For luasnip users.
+          { name = "nvim_lsp" },
+          { name = "luasnip" }, -- For luasnip users.
         }, {
-          { name = 'buffer' },
-        })
+          { name = "buffer" },
+        }),
       }
     end,
     config = function(_, opts)
-      require('cmp').setup(opts)
+      require("cmp").setup(opts)
     end,
   },
 
   -- treesitter
   {
-    'nvim-treesitter/nvim-treesitter',
+    "nvim-treesitter/nvim-treesitter",
+    dependencies = {
+      "nvim-treesitter/nvim-treesitter-textobjects",
+    },
     ft = lang_fts,
     cmd = { "TSInstall", "TSBufEnable", "TSBufDisable", "TSModuleInfo" },
-    build = ':TSUpdate',
+    build = ":TSUpdate",
     opts = function()
       local ensure_installed = {}
 
@@ -345,16 +350,25 @@ return {
         sync_install = true,
         highlight = { enable = true },
         indent = { enable = true },
+        incremental_selection = {
+          enable = true,
+          keymaps = {
+            init_selection = "gnn", -- set to `false` to disable one of the mappings
+            node_incremental = "grn",
+            scope_incremental = "grc",
+            node_decremental = "grm",
+          },
+        },
       }
     end,
     config = function(_, opts)
-      require('nvim-treesitter.configs').setup(opts)
+      require("nvim-treesitter.configs").setup(opts)
     end,
   },
 
   -- conform
   {
-    'stevearc/conform.nvim',
+    "stevearc/conform.nvim",
     pin = true,
     ft = lang_fts,
     opts = function()
@@ -374,14 +388,14 @@ return {
 
   -- outline
   {
-    'hedyhli/outline.nvim',
+    "hedyhli/outline.nvim",
     pin = true,
     ft = lang_fts,
     dependencies = {
-      'neovim/nvim-lspconfig'
+      "neovim/nvim-lspconfig",
     },
     keys = {
-      { '<leader>o', '<cmd>Outline<CR>', desc = 'Toggle Outline' }
+      { "<leader>o", "<cmd>Outline<CR>", desc = "Toggle Outline" },
     },
     config = true,
   },
@@ -389,30 +403,29 @@ return {
   -- lua
   {
     "folke/neodev.nvim",
-    ft = 'lua',
+    ft = "lua",
     dependencies = {
-      'hedyhli/outline.nvim',
-      'stevearc/conform.nvim',
+      "hedyhli/outline.nvim",
+      "stevearc/conform.nvim",
     },
     config = true,
   },
 
   -- vue
 
-
   -- markdown
   {
-    'lukas-reineke/headlines.nvim',
+    "lukas-reineke/headlines.nvim",
     pin = true,
-    ft = { 'markdown' },
+    ft = { "markdown" },
     dependencies = {
-      'nvim-treesitter/nvim-treesitter'
+      "nvim-treesitter/nvim-treesitter",
     },
     config = function()
-      require('headlines').setup({
+      require("headlines").setup {
         markdown = {
           query = vim.treesitter.query.parse(
-            'markdown',
+            "markdown",
             [[
                 (atx_heading [
                     (atx_h1_marker)
@@ -433,19 +446,19 @@ return {
                 (block_quote (block_continuation) @quote)
             ]]
           ),
-          headline_highlights = { 'Headline' },
-          codeblock_highlight = 'CodeBlock',
-          dash_highlight = 'Dash',
-          dash_string = '-',
-          quote_highlight = 'Quote',
-          quote_string = '┃',
+          headline_highlights = { "Headline" },
+          codeblock_highlight = "CodeBlock",
+          dash_highlight = "Dash",
+          dash_string = "-",
+          quote_highlight = "Quote",
+          quote_string = "┃",
           fat_headlines = true,
-          fat_headline_upper_string = ' ',
-          fat_headline_lower_string = ' ',
+          fat_headline_upper_string = " ",
+          fat_headline_lower_string = " ",
         },
         rmd = {
           query = vim.treesitter.query.parse(
-            'markdown',
+            "markdown",
             [[
                 (atx_heading [
                     (atx_h1_marker)
@@ -466,28 +479,28 @@ return {
                 (block_quote (block_continuation) @quote)
             ]]
           ),
-          treesitter_language = 'markdown',
-          headline_highlights = { 'Headline' },
-          codeblock_highlight = 'CodeBlock',
-          dash_highlight = 'Dash',
-          dash_string = '-',
-          quote_highlight = 'Quote',
-          quote_string = '┃',
+          treesitter_language = "markdown",
+          headline_highlights = { "Headline" },
+          codeblock_highlight = "CodeBlock",
+          dash_highlight = "Dash",
+          dash_string = "-",
+          quote_highlight = "Quote",
+          quote_string = "┃",
           fat_headlines = true,
-          fat_headline_upper_string = '',
-          fat_headline_lower_string = '',
+          fat_headline_upper_string = "",
+          fat_headline_lower_string = "",
         },
-      })
+      }
     end,
   },
 
   -- oil
   {
-    'stevearc/oil.nvim',
+    "stevearc/oil.nvim",
     config = function()
       require("oil").setup()
       vim.keymap.set("n", "-", "<CMD>Oil<CR>", { desc = "Open parent directory" })
     end,
     lazy = false,
-  }
+  },
 }

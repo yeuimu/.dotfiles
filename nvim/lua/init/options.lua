@@ -1,8 +1,8 @@
 -- Enable system clipboard
-vim.opt.clipboard = 'unnamedplus'
+vim.opt.clipboard = "unnamedplus"
 -- utf8
-vim.opt.encoding = 'UTF-8'
-vim.opt.fileencoding = 'utf-8'
+vim.opt.encoding = "UTF-8"
+vim.opt.fileencoding = "utf-8"
 -- 使用相对行号
 vim.opt.number = true
 vim.opt.relativenumber = true
@@ -15,16 +15,35 @@ vim.opt.autoread = true
 vim.opt.wrap = true
 
 -- tab => space*2
-vim.opt.tabstop = 2      -- 设置tab为2个空格的等效宽度
+vim.opt.tabstop = 2 -- 设置tab为2个空格的等效宽度
 vim.opt.expandtab = true -- 设置按下tab键时插入空格
-vim.opt.shiftwidth = 2   -- 设置自动缩进时使用的空格数
-vim.opt.softtabstop = 2  -- 设置按下退格键时处理空格的方式
+vim.opt.shiftwidth = 2 -- 设置自动缩进时使用的空格数
+vim.opt.softtabstop = 2 -- 设置按下退格键时处理空格的方式
 
 -- 折叠层级
 vim.opt.foldlevel = 99
 vim.opt.conceallevel = 2
 vim.opt.foldenable = true
 vim.opt.foldlevelstart = 99
+
+-- treesitter folding
+vim.wo.foldmethod = "expr"
+vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+vim.o.foldtext = ""
+vim.o.fillchars = "fold: "
+
+-- 启用持久化折叠
+vim.opt.viewoptions:append "folds"
+
+-- 保存文件时自动保存视图（包括折叠）
+vim.api.nvim_create_autocmd({ "BufWinLeave" }, {
+  pattern = { "*" },
+  command = "silent! mkview",
+})
+vim.api.nvim_create_autocmd({ "BufWinEnter" }, {
+  pattern = { "*" },
+  command = "silent! loadview",
+})
 
 -- 快捷键反应时间
 vim.opt.timeoutlen = 1500
@@ -36,5 +55,5 @@ vim.opt.sb = true
 vim.opt.ma = true
 
 -- Add binaries installed by mason.nvim to path
-local is_windows = vim.fn.has("win32") ~= 0
+local is_windows = vim.fn.has "win32" ~= 0
 vim.env.PATH = vim.fn.stdpath "data" .. "/mason/bin" .. (is_windows and ";" or ":") .. vim.env.PATH
