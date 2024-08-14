@@ -71,4 +71,4 @@ install $home_dir/.config/fontconfig $curent_dir/fontconfig
 install $home_dir/.asoundrc $curent_dir/.asoundrc
 
 # mpd
-install $home_dir/.config/mpd $curent_dir/mpd
+# install $home_dir/.config/mpd $curent_dir/mpd
