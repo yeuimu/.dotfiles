@@ -9,8 +9,14 @@ local map = vim.keymap.set
 map({ 'n', 'v' }, '<Leader>qq', ':q!<CR>')
 map({ 'n', 'v' }, '<Leader>qw', ':qw<CR>')
 
--- save file
+-- Save file
 map({ 'i', 'x', 'n', 's' }, '<C-s>', '<cmd>w<cr><esc>', { desc = 'Save File' })
+
+-- Buffer operation
+map('n', 'gw', '<cmd>bd<cr>', { desc = 'Delete current buffer', remap = true })
+map('n', 'gt', '<cmd>BufferLinePick<cr>', { desc = 'Pick which buffer', remap = true })
+map('n', 'gp', '<cmd>bp<cr>', { desc = 'Go to previous buffer', remap = true })
+map('n', 'gn', '<cmd>bn<cr>', { desc = 'Go to next buffer', remap = true })
 
 -- Terminal Mappings
 map("t", "<A-x>", "<c-\\><c-n>", { desc = "Enter Normal Mode" })
@@ -19,7 +25,7 @@ map("t", "<C-j>", "<cmd>wincmd j<cr>", { desc = "Go to Lower Window" })
 map("t", "<C-k>", "<cmd>wincmd k<cr>", { desc = "Go to Upper Window" })
 map("t", "<C-l>", "<cmd>wincmd l<cr>", { desc = "Go to Right Window" })
 
--- windows
+-- Spit the windows
 map('n', '<leader>ww', '<C-W>p', { desc = 'Other Window', remap = true })
 map('n', '<leader>wd', '<C-W>c', { desc = 'Delete Window', remap = true })
 map('n', '<leader>w-', '<C-W>s', { desc = 'Split Window Below', remap = true })
