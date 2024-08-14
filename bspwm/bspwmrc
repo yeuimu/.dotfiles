@@ -39,5 +39,3 @@ if bspc query -M --names | grep "HDMI-A-0" >/dev/null 2>&1 ; then
 else
   ~/.config/polybar/launch.sh note
 fi
-
-/opt/clash-for-windows-bin/cfw
