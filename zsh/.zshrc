@@ -5,12 +5,6 @@ compinit
 
 # ------------ Plugin Manager ------------ #
 
-# Store any statu for zsh script
-ZSHSTATUS=$HOME/.zsh_status
-
-# Load status
-[[ -e $ZSHSTATUS ]] && source $ZSHSTATUS
-
 # Where should we download your Zsh plugins?
 ZPLUGINDIR=${ZDOTDIR:-$HOME/.local/share/zsh}/plugins
 
@@ -39,9 +33,7 @@ function plugin-load {
   for plugdir in $@; do
     [[ $plugdir = /* ]] || plugdir=$ZPLUGINDIR/$plugdir
     fpath+=$plugdir
-    [ $ZSHSTATUS = true ] && initfile=$plugdir/${plugdir:t}.plugin.zsh.zwc || initfile=$plugdir/${plugdir:t}.plugin.zsh
-
-    # [[ -e $ZSHSTATUS ]] && [ $compiled_status = "true" ] && initfile=$plugdir/${plugdir:t}.plugin.zsh.zwc || initfile=$plugdir/${plugdir:t}.plugin.zsh
+    initfile=$plugdir/${plugdir:t}.plugin.zsh
     (( $+functions[zsh-defer] )) && zsh-defer . $initfile || . $initfile
   done
 }
@@ -52,7 +44,7 @@ function theme-load {
   ZPLUGINDIR=${ZPLUGINDIR:-${ZDOTDIR:-$HOME/.config/zsh}/plugins}
   [[ $themedir = /* ]] || themedir=$ZPLUGINDIR/$1
   fpath+=$themedir
-  [ "$VARIABLE" = "true" ] && themefile=$themedir.zsh-theme.zwc || themefile=$themedir.zsh-theme
+  themefile=$themedir.zsh-theme
   (( $+functions[zsh-defer] )) && zsh-defer . $themefile || . $themefile
 }
 
@@ -102,5 +94,4 @@ function plugin-compile {
   for f in $ZPLUGINDIR/**/*.zsh{,-theme}(N); do
     zrecompile -pq "$f"
   done
-  echo "compiled_status=true" >> $ZSHSTATUS
 }
