@@ -93,7 +93,7 @@ local function create(opts)
   opts.buf = opts.buf or vim.api.nvim_create_buf(false, true)
 
   -- handle cmd opt
-  local shell = vim.o.shell
+  local shell = "/usr/bin/zsh"
   local cmd = shell
 
   if opts.cmd and opts.buf then
@@ -165,16 +165,15 @@ api.nvim_create_autocmd("TermClose", {
 
 --------------------------- command -------------------------------
 new_cmd("TermNew", function(opts)
-  create({ pos = opts.fargs[1], size = opts.fargs[2] })
-end, { nargs = '*' })
+  create { pos = opts.fargs[1], size = opts.fargs[2] }
+end, { nargs = "*" })
 
 new_cmd("TermToggle", function(opts)
-  M.toggle({ pos = opts.fargs[1], id = opts.fargs[2], size = tonumber(opts.fargs[3]) })
-end, { nargs = '*' })
+  M.toggle { pos = opts.fargs[1], id = opts.fargs[2], size = tonumber(opts.fargs[3]) }
+end, { nargs = "*" })
 
 M.setup = function(opts)
   config = opts or default_config
 end
-
 
 return M

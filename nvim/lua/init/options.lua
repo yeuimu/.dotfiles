@@ -34,8 +34,6 @@ vim.o.fillchars = "fold: "
 
 -- 启用持久化折叠
 vim.opt.viewoptions:append "folds"
-
--- 保存文件时自动保存视图（包括折叠）
 vim.api.nvim_create_autocmd({ "BufWinLeave" }, {
   pattern = { "*" },
   command = "silent! mkview",
