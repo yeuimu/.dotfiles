@@ -1,58 +1,96 @@
-# oh-my-zsh
-export ZSH="$HOME/.oh-my-zsh"
-ZSH_THEME="robbyrussell"
-plugins=(git)
-source $ZSH/oh-my-zsh.sh
-
-# alias
-alias v="nvim"
-alias vim="nvim"
-alias vi="nvim"
-alias c="cd"
-alias b="cd .."
-alias x="startx"
-alias cls="clear"
-alias e="emacs -nw"
-alias sd="sudo"
-alias soft="ssh soft"
-
-# fcitx setting
-export XMODIFIERS=@im=fcitx
-export GTK_IM_MODULE=xim
-export QT_IM_MODULE=fcitx
-export DefaultIMModule=fcitx
-
-# system_proxy
-export proxy="http://127.0.0.1:7890"
-export http_proxy=$proxy
-export https_proxy=$proxy
-export ftp_proxy=$proxy
-export no_proxy="localhost, 127.0.0.1, ::1"
-
-# env 
-
-export PATH=$PATH:~/.local/bin
-
-export PATH="$HOME/.cargo/bin/:$HOME/.cargo/env:$PATH"
-
-# GDK & QT
-export GDK_SCALE=2
-export GDK_DPI_SCALE=0.5
-export GDK_BACKEND=x11
-export QT_AUTO_SCREEN_SCALE_FACTOR=2
-export QT_ENABLE_HIGHDPI_SCALING=0.5
-
-# chinese => english
-tse(){
-  trans -b zh:en $1
-}
-# chinese => japanese
-tsj(){
-  trans -b zh:ja $1
-}
-
 set -o vi
+autoload -Uz compinit
+compinit
 
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+# ------------ Plugin Manager ------------ #
+
+# Where should we download your Zsh plugins?
+ZPLUGINDIR=${ZDOTDIR:-$HOME/.local/share/zsh}/plugins
+
+# Downloader to clone plugin repo
+function plugin-clone {
+  local repo plugdir initfile initfiles=()
+  ZPLUGINDIR=${ZPLUGINDIR:-${ZDOTDIR:-$HOME/.config/zsh}/plugins}
+  for repo in $@; do
+    plugdir=$ZPLUGINDIR/${repo:t}
+    initfile=$plugdir/${repo:t}.plugin.zsh
+    if [[ ! -d $plugdir ]]; then
+      echo "Cloning $repo..."
+      git clone -q --depth 1 --recursive --shallow-submodules https://github.com/$repo $plugdir
+    fi
+    if [[ ! -e $initfile ]]; then
+      initfiles=($plugdir/*.{plugin.zsh,zsh-theme,zsh,sh}(N))
+      (( $#initfiles )) && ln -sf $initfiles[1] $initfile
+    fi
+  done
+}
+
+# Plugin Loader
+function plugin-load {
+  local plugdir initfile
+  ZPLUGINDIR=${ZPLUGINDIR:-${ZDOTDIR:-$HOME/.config/zsh}/plugins}
+  for plugdir in $@; do
+    [[ $plugdir = /* ]] || plugdir=$ZPLUGINDIR/$plugdir
+    fpath+=$plugdir
+    initfile=$plugdir/${plugdir:t}.plugin.zsh
+    (( $+functions[zsh-defer] )) && zsh-defer . $initfile || . $initfile
+  done
+}
+
+# Theme Loader
+function theme-load {
+  local themedir themefile
+  ZPLUGINDIR=${ZPLUGINDIR:-${ZDOTDIR:-$HOME/.config/zsh}/plugins}
+  [[ $themedir = /* ]] || themedir=$ZPLUGINDIR/$1
+  fpath+=$themedir
+  themefile=$themedir.zsh-theme
+  (( $+functions[zsh-defer] )) && zsh-defer . $themefile || . $themefile
+}
+
+# Github repo plugins list
+repos=(
+  # not-sourcable plugins
+  romkatv/zsh-bench
+
+  # projects with nested plugins
+  belak/zsh-utils
+  ohmyzsh/ohmyzsh
+
+  # regular plugins
+  zsh-users/zsh-autosuggestions
+  zsh-users/zsh-history-substring-search
+  zdharma-continuum/fast-syntax-highlighting
+)
+plugin-clone $repos
+
+# Handle non-standard plugins
+export PATH="$ZPLUGINDIR/zsh-bench:$PATH"
+for file in $ZPLUGINDIR/ohmyzsh/lib/*.zsh; do
+  source $file
+done
+
+# Load plugins list
+plugins=(
+  zsh-utils/history
+  zsh-utils/completion
+  zsh-utils/utility
+  ohmyzsh/plugins/magic-enter
+  ohmyzsh/plugins/history-substring-search
+  ohmyzsh/plugins/z
+  fast-syntax-highlighting
+  zsh-autosuggestions
+)
+plugin-load $plugins
+
+# Load theme
+theme-load ohmyzsh/themes/robbyrussell
+
+# Plugin Compiler
+function plugin-compile {
+  ZPLUGINDIR=${ZPLUGINDIR:-$HOME/.config/zsh/plugins}
+  autoload -U zrecompile
+  local f
+  for f in $ZPLUGINDIR/**/*.zsh{,-theme}(N); do
+    zrecompile -pq "$f"
+  done
+}
