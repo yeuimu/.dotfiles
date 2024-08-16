@@ -5,13 +5,21 @@ home_dir=$(echo ~)
 
 # target_file_path source_file_path
 install_file(){
-	if [[ -e $1 || -L $1 ]];then
+  local destination from
+  destination=$1
+  from=$2
+
+	if [[ -e $destination || -L $destination ]];then
 		echo -e "\e[32mDelete: \e[O" "\e[37m$1\e[O"
-		rm -rf $1
+		rm -rf $destination
 	fi
 
-	echo -e "\e[32mLink: \e[O" "\e[37m" "$2" "=>" "$1" "\e[O"
-	ln -s $2 $1
+  if [[ ! -e ${destination%/*} ]];then
+    mkdir ${destination%/*}
+  fi
+
+	echo -e "\e[32mLink: \e[O" "\e[37m" "$from" "=>" "$destination" "\e[O"
+	ln -s $from $destination
 }
 
 # target_path source_path
@@ -32,11 +40,12 @@ install_dir(){
 
 # target source
 install(){
-	if [ -d $2 ];then
-		install_dir $1 $2
-	else
-		install_file $1 $2
-	fi
+	 if [ -d $2 ];then
+	 	install_dir $1 $2
+	 else
+	 	install_file $1 $2
+	 fi
+  #install_file $1 $2
 }
 
 # bspwm
@@ -56,6 +65,7 @@ install $home_dir/.emacs.d $curent_dir/.emacs.d
 
 # zsh
 install $home_dir/.zshrc $curent_dir/zsh/.zshrc
+install $home_dir/".local"/share/zsh/themes/robbyrussell-ascii.zsh-theme $curent_dir/zsh/robbyrussell-ascii.zsh-theme
 
 # x
 install $home_dir/.xinitrc $curent_dir/x/.xinitrc
