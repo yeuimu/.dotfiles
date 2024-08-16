@@ -1,12 +1,14 @@
 # ------------ Zsh Setup ------------ #
 set -o vi
-autoload -Uz compinit
+autoload -Uz compinit promptinit
 compinit
+# promptinit
 
 # ------------ Plugin Manager ------------ #
 
 # Where should we download your Zsh plugins?
 ZPLUGINDIR=${ZDOTDIR:-$HOME/.local/share/zsh}/plugins
+ZTHEMEDIR=${ZDOTDIR:-$HOME/.local/share/zsh}/themes
 
 # Downloader to clone plugin repo
 function plugin-clone {
@@ -41,8 +43,8 @@ function plugin-load {
 # Theme Loader
 function theme-load {
   local themedir themefile
-  ZPLUGINDIR=${ZPLUGINDIR:-${ZDOTDIR:-$HOME/.config/zsh}/plugins}
-  [[ $themedir = /* ]] || themedir=$ZPLUGINDIR/$1
+  ZTHEMEDIR=${ZTHEMEDIR:-${ZDOTDIR:-$HOME/.config/zsh}/plugins}
+  [[ $themedir = /* ]] || themedir=$ZTHEMEDIR/$1
   fpath+=$themedir
   themefile=$themedir.zsh-theme
   (( $+functions[zsh-defer] )) && zsh-defer . $themefile || . $themefile
@@ -84,7 +86,8 @@ plugins=(
 plugin-load $plugins
 
 # Load theme
-theme-load ohmyzsh/themes/robbyrussell
+# theme-load ohmyzsh/themes/robbyrussell
+theme-load robbyrussell-ascii
 
 # Plugin Compiler
 function plugin-compile {
