@@ -1,3 +1,10 @@
+local Iter = require "vim.iter"
+
+-- Language Register
+-- 1. File type;
+-- 2. Language server protocol and config for neovim and it's setting;
+-- 3. Formatter;
+-- 4. Treesitter parser.
 local langs = {
   rust = {
     ft = "rust",
@@ -78,11 +85,20 @@ local langs = {
     lspconfig = "nil_ls",
     formatter = "nixfmt",
   },
+  bash = {
+    ft = { "bash", "zsh" },
+  },
 }
 
 local lang_fts = {}
 for lang, value in pairs(langs) do
-  if value.ft then
+  local ft = value.ft
+  if type(ft) == "table" then
+    vim.print(ft)
+    for _, v in pairs(ft) do
+      table.insert(lang_fts, v)
+    end
+  else
     table.insert(lang_fts, lang)
   end
 end
