@@ -1,5 +1,3 @@
-local Iter = require "vim.iter"
-
 -- Language Register
 -- 1. File type;
 -- 2. Language server protocol and config for neovim and it's setting;
