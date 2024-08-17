@@ -66,3 +66,10 @@ install() {
   clone_dotfiles
   link
 }
+
+# Handle arg
+if [[ "$1" == "install" ]]; then
+    install
+  else
+      echo "Usage: $0 install"
+fi
