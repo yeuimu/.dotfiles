@@ -1,82 +1,75 @@
-curent_dir=$(pwd)
-home_dir=$(echo ~)
+LOCALSHAREDIR="$HOME/.local/share"
+CONFIGDIR="$HOME/.config"
+DOTFILESDIR="$HOME/.dotfiles"
 
-# target_file_path source_file_path
-install_file(){
-  local destination from
-  destination=$1
-  from=$2
+# links["destination"]="from"
+declare -A links
+links[$CONFIGDIR/bspwm]="$DOTFILESDIR/bspwm"
+links[$CONFIGDIR/sxhkd]="$DOTFILESDIR/sxhkd"
+links[$CONFIGDIR/rofi]="$DOTFILESDIR/rofi"
+links[$CONFIGDIR/kitty]="$DOTFILESDIR/kitty"
+links[$CONFIGDIR/feh]="$DOTFILESDIR/feh"
+links[$CONFIGDIR/polybar]="$DOTFILESDIR/polybar"
+links[$CONFIGDIR/picom]="$DOTFILESDIR/picom"
+links[$CONFIGDIR/nvim]="$DOTFILESDIR/nvim"
+links[$CONFIGDIR/mpd]="$DOTFILESDIR/mpd"
+links[$CONFIGDIR/fontconfig]="$DOTFILESDIR/fontconfig"
+links[$HOME/.xinitrc]="$DOTFILESDIR/x/.xinitrc"
+links[$HOME/.Xmodmap]="$DOTFILESDIR/x/.Xmodmap"
+links[$HOME/.tmux.conf]="$DOTFILESDIR/tmux/.tmux.conf"
+links[$HOME/.emacs.d]="$DOTFILESDIR/.emacs.d"
+links[$HOME/.zshrc]="$DOTFILESDIR/zsh/.zshrc"
+links[$HOME/.asoundrc]="$DOTFILESDIR/.asoundrc"
+links[$LOCALSHAREDIR/zsh/themes]="$DOTFILESDIR/zsh/themes"
 
-	if [[ -e $destination || -L $destination ]];then
-		echo -e "\e[32mDelete: \e[O" "\e[37m$1\e[O"
-		rm -rf $destination
-	fi
-
-  if [[ ! -e ${destination%/*} ]];then
-    mkdir ${destination%/*}
-  fi
-
-	echo -e "\e[32mLink: \e[O" "\e[37m" "$from" "=>" "$destination" "\e[O"
-	ln -s $from $destination
+unlink() {
+  local destination=$1
+  rm -rf $destination
+  echo -e "\e[32mDelete: \e[O" "\e[37m$1\e[O"
 }
 
-# target_path source_path
-install_dir(){
-	if [[ -e $1 || -L $1 ]];then
-		echo -e "\e[32mDelete: \e[O" "\e[37m$1\e[O"
-		rm -rf $1
-	fi
+link() {
+  local from destination
+  for destination in ${(@k)links[@]}; do
+    echo $destination
+    from=${links[$destination]}
 
-	if ! [ -e $(dirname $1) ];then
-		echo -e "\e[32mMake: \e[O" "\e[37m"  "$(dirname $1)" "\e[O"
-		mkdir -p $(dirname $1)
-	fi
+    # delete origin link
+    unlink $destination
+  
+    # mkdir path
+    [ ! -d $(dirname $destination) ] && \
+      mkdir -p $(dirname $destination) && \
+  		echo -e "\e[32mMake: \e[O" "\e[37m"  "$(dirname ${destination})" "\e[O"
+  
+    # link
+    [ ! -e $destination ] && \
+      ln -s $from $destination && \
+      echo -e "\e[32mLink: \e[O" "\e[37m" "$from" "=>" "$destination" "\e[O"
 
-	echo -e "\e[32mLink: \e[O" "\e[37m" "$2" "=>" "$1" "\e[O"
-	ln -s $2 $1
+  done
 }
 
-# target source
-install(){
-	 if [ -d $2 ];then
-	 	install_dir $1 $2
-	 else
-	 	install_file $1 $2
-	 fi
-  #install_file $1 $2
+uninstall() {
+  local from destination
+  for destination in "${(k)links[@]}"; do
+    unlink $destination
+  done
 }
 
-# bspwm
-install $home_dir/.config/bspwm $curent_dir/bspwm
-install $home_dir/.config/sxhkd $curent_dir/sxhkd
-install $home_dir/.config/rofi $curent_dir/rofi
-install $home_dir/.config/kitty $curent_dir/kitty
-install $home_dir/.config/feh $curent_dir/feh
-install $home_dir/.config/polybar $curent_dir/polybar
-install $home_dir/.config/picom $curent_dir/picom
+clone_dotfiles() {
+  [ ! -d $DOTFILESDIR ] && git clone https://github.com/yeuimu/.dotfiles $DOTFILESDIR
+}
 
-# neovim
-install $home_dir/.config/nvim $curent_dir/nvim
+# Install all config, 1 version
+install() {
+  clone_dotfiles
+  link
+}
 
-# emacs
-install $home_dir/.emacs.d $curent_dir/.emacs.d
-
-# zsh
-install $home_dir/.zshrc $curent_dir/zsh/.zshrc
-install $home_dir/".local"/share/zsh/themes/robbyrussell-ascii.zsh-theme $curent_dir/zsh/robbyrussell-ascii.zsh-theme
-
-# x
-install $home_dir/.xinitrc $curent_dir/x/.xinitrc
-install $home_dir/.Xmodmap $curent_dir/x/.Xmodemap
-
-# tmux
-install $home_dir/.tmux.conf $curent_dir/tmux/.tmux.conf
-
-# font config
-install $home_dir/.config/fontconfig $curent_dir/fontconfig
-
-# sound
-install $home_dir/.asoundrc $curent_dir/.asoundrc
-
-# mpd
-# install $home_dir/.config/mpd $curent_dir/mpd
+# Handle arg
+if [[ "$1" == "install" ]]; then
+    install
+  else
+      echo "Usage: $0 install"
+fi
