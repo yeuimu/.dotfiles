@@ -1,5 +1,3 @@
-#! /bin/bash
-
 curent_dir=$(pwd)
 home_dir=$(echo ~)
 
