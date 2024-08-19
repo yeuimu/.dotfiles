@@ -1,3 +1,11 @@
+## How to install?
+
+```sh
+zsh -c "$(curl -fsSL https://raw.githubusercontent.com/yeuimu/.dotfiles/main/install.zsh)"
+```
+
+## Indroduction
+
 我的配置文件分别有: 
 
 Bspwm 桌面环境：
@@ -17,10 +25,3 @@ Bspwm 桌面环境：
 - mpd, ncmpcpp: 音乐播放器
 - tmux: 终端分屏
 
-安装配置文件，进入当前仓库，赋予 install 执行权限，然后运行
-
-```bash
-./install.sh
-```
-
-之后配置文件将以软连接形式出现在它该出现的位置
