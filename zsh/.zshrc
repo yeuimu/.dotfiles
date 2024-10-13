@@ -3,6 +3,8 @@ set -o vi
 autoload -Uz compinit
 compinit
 
+export PATH=~/.cargo/bin:$PATH
+
 # ------------ Plugin Manager ------------ #
 
 # Where should we download your Zsh plugins?
