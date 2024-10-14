@@ -30,7 +30,7 @@
 (add-hook 'prog-mode-hook #'hs-minor-mode)
 
 					; 在 Window 显示行号
-(global-display-line-numbers-mode 1)
+;(global-display-line-numbers-mode 1)
 
 					; 打开 Buffer 历史记录保存
 (savehist-mode 1)
