@@ -28,3 +28,5 @@ mpd/log
 mpd/pid
 mpd/playlists/
 mpd/state
+
+node_modules
