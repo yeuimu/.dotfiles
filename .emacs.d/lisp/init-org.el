@@ -11,8 +11,11 @@
 					; auto linefeed on org mode
   (add-hook 'org-mode-hook (lambda () (setq truncate-lines nil)))
 
-  (setq org-agenda-files '("~/Documents/org/todo.org"
-                           "~/Documents/org/inbox.org")
+  (setq org-agenda-files '(
+                           "~/Documents/org/gtd.org"
+                           ;"~/Documents/org/todo.org"
+                           ;"~/Documents/org/inbox.org"
+                           )
 	org-agenda-time-grid (quote ((daily today require-timed)
                                      (300
                                       600
@@ -29,23 +32,27 @@
 				      ((tags-todo "-SCHEDULED/!TODO"
 						  ((org-agenda-overriding-header "Unscheduled TODOs"))))))
   org-capture-templates '(
-                          ("i" "inbox" entry (file "~/Documents/org/inbox.org")
-                           "* %^{headline} %^g \n\n%? \n\n%U" :empty-lines 1)
-                          ("t" "todo" entry (file+datetree "~/Documents/org/todo.org")
-                           "* TODO [#B] %U %i%?" :empty-lines 1)
-                          ("s" "someday" entry (file+headline "~/Documents/org/maybe.org" "someday")
-                           "* [#C] %U %i%?" :empty-lines 1)
-                          ("r" "reference" entry (file+headline "~/Documents/org/reference.org" "reference")
-                           "* [#C] %U %i%?" :empty-lines 1)
-                          ("e" "repeat" entry (file+headline "~/Documents/org/repeat.org" "repeat")
-                           "* [#C] %U %i%?" :empty-lines 1))
+                          ("i" "inbox" entry (file+headline "~/Documents/org/gtd.org" "Inbox")
+                           "** %^{headline} %^g \n\n%? \n\n%U" :empty-lines 1)
+                          ; ("i" "inbox" entry (file "~/Documents/org/inbox.org")
+                          ;  "* %^{headline} %^g \n\n%? \n\n%U" :empty-lines 1)
+                          ; ("t" "todo" entry (file+datetree "~/Documents/org/todo.org")
+                          ;  "* TODO [#B] %U %i%?" :empty-lines 1)
+                          ; ("s" "someday" entry (file+headline "~/Documents/org/maybe.org" "someday")
+                          ;  "* [#C] %U %i%?" :empty-lines 1)
+                          ; ("r" "reference" entry (file+headline "~/Documents/org/reference.org" "reference")
+                          ;  "* [#C] %U %i%?" :empty-lines 1)
+                          ; ("e" "repeat" entry (file+headline "~/Documents/org/repeat.org" "repeat")
+                          ;  "* [#C] %U %i%?" :empty-lines 1)
+                          )
   org-refile-targets '(
-                       ("~/Documents/org/inbox.org" :maxlevel . 2)
-		       ("~/Documents/org/maybe.org" :maxlevel . 9)
-		       ("~/Documents/org/reference.org" :maxlevel . 9)
-		       ("~/Documents/org/todo.org" :maxlevel . 9)
-		       ("~/Documents/org/project.org" :maxlevel . 9)
-		       )
+                        ("~/Documents/org/gtd.org" :maxlevel . 2)
+                       ; ("~/Documents/org/inbox.org" :maxlevel . 2)
+                       ; ("~/Documents/org/maybe.org" :maxlevel . 9)
+		                   ; ("~/Documents/org/reference.org" :maxlevel . 9)
+		                   ; ("~/Documents/org/todo.org" :maxlevel . 9)
+		                   ; ("~/Documents/org/project.org" :maxlevel . 9)
+                       )
   org-refile-use-outline-path 'file
   org-outline-path-complete-in-steps nil
   org-refile-allow-creating-parent-nodes 'confirm
@@ -161,7 +168,7 @@
             "calc" "asymptote" "dot" "gnuplot" "ledger" "lilypond" "mscgen"
             "octave" "oz" "plantuml" "R" "sass" "screen" "sql" "awk" "ditaa"
             "haskell" "latex" "lisp" "matlab" "ocaml" "org" "perl" "ruby"
-            "Scheme" "sqlite" "lua")))
+            "Scheme" "sqlite" "lua" "rust")))
      (list (ido-completing-read "Source code type: " src-code-types))))
   (progn
     (newline-and-indent)
