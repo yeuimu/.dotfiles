@@ -13,8 +13,6 @@
   (setq evil-want-keybinding nil)
   (evil-mode 1))
 
-
-
 (use-package which-key
   :defer nil
   :config
