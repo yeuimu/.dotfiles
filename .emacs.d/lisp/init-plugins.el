@@ -56,5 +56,13 @@
 (setq ivy-re-builders-alist '((t . orderless-ivy-re-builder)))
 (add-to-list 'ivy-highlight-functions-alist '(orderless-ivy-re-builder . orderless-ivy-highlight))
 
+;; restar emacs 包
+(use-package restart-emacs
+  :ensure t
+  :bind (("C-c r" . restart-emacs))  ; 绑定一个快捷键来重启Emacs
+  :custom
+  (restart-emacs-restore-frames t)  ; 重启时恢复窗口布局
+)
+
 (provide 'init-plugins)
 ;;; init-plugins.el ends here
