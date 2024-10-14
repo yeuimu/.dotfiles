@@ -2,20 +2,17 @@
 ;;; Commentary:
 ;;; Code:
 
+; Appoint path to org dir and gtd file
+(setq org-path "~/Documents/allinone/Org/")
+(setq gtd-path (concat org-path "gtd.org"))
+(setq note-path (concat org-path "notes"))
+
 (use-package org
   :ensure t
   :init (setq evil-want-C-i-jump nil)
   :config
-  ;;; Config
   ;; General
-					; auto linefeed on org mode
-  (add-hook 'org-mode-hook (lambda () (setq truncate-lines nil)))
-
-  (setq org-agenda-files '(
-                           "~/Documents/org/gtd.org"
-					;"~/Documents/org/todo.org"
-					;"~/Documents/org/inbox.org"
-                           )
+  (setq org-agenda-files '(gtd-path)
 	org-agenda-time-grid (quote ((daily today require-timed)
                                      (300
                                       600
@@ -32,26 +29,23 @@
 				      ((tags-todo "-SCHEDULED/!TODO"
 						  ((org-agenda-overriding-header "Unscheduled TODOs"))))))
 	org-capture-templates '(
-				("i" "inbox" entry (file+headline "~/Documents/org/gtd.org" "Inbox")
+				("i" "inbox" entry (file+headline gtd-path "Inbox")
 				 "** %^{headline} %^g \n\n%? \n\n%U" :empty-lines 1)
-					; ("i" "inbox" entry (file "~/Documents/org/inbox.org")
-					;  "* %^{headline} %^g \n\n%? \n\n%U" :empty-lines 1)
-					; ("t" "todo" entry (file+datetree "~/Documents/org/todo.org")
-					;  "* TODO [#B] %U %i%?" :empty-lines 1)
-					; ("s" "someday" entry (file+headline "~/Documents/org/maybe.org" "someday")
-					;  "* [#C] %U %i%?" :empty-lines 1)
-					; ("r" "reference" entry (file+headline "~/Documents/org/reference.org" "reference")
-					;  "* [#C] %U %i%?" :empty-lines 1)
-					; ("e" "repeat" entry (file+headline "~/Documents/org/repeat.org" "repeat")
-					;  "* [#C] %U %i%?" :empty-lines 1)
+				("t" "tasks" entry (file+headline gtd-path "Tasks")
+				 "** %^{headline} %^g \n\n%? \n\n%U" :empty-lines 1)
+				("p" "projects" entry (file+headline gtd-path "Projects")
+				 "** %^{headline} %^g \n\n%? \n\n%U" :empty-lines 1)
+				("v" "review" entry (file+headline gtd-path "Review")
+				 "** %^{headline} %^g \n\n%? \n\n%U" :empty-lines 1)
+				("w" "wait" entry (file+headline gtd-path "Waiting")
+				 "** %^{headline} %^g \n\n%? \n\n%U" :empty-lines 1)
+				("r" "references" entry (file+headline gtd-path "References")
+				 "** %^{headline} %^g \n\n%? \n\n%U" :empty-lines 1)
+				("m" "maybe" entry (file+headline gtd-path "Maybe")
+				 "** %^{headline} %^g \n\n%? \n\n%U" :empty-lines 1)
 				)
 	org-refile-targets '(
-                             ("~/Documents/org/gtd.org" :maxlevel . 2)
-					; ("~/Documents/org/inbox.org" :maxlevel . 2)
-					; ("~/Documents/org/maybe.org" :maxlevel . 9)
-					; ("~/Documents/org/reference.org" :maxlevel . 9)
-					; ("~/Documents/org/todo.org" :maxlevel . 9)
-					; ("~/Documents/org/project.org" :maxlevel . 9)
+                             ( gtd-path :maxlevel . 2)
 			     )
 	org-refile-use-outline-path 'file
 	org-outline-path-complete-in-steps nil
@@ -100,6 +94,10 @@
 					; open capture
   (evil-define-key '(normal ) org-mode-map
     (kbd "<leader>gp") 'org-capture)
+          ; Theme
+          ; switch one
+  (evil-define-key '(normal ) org-mode-map
+    (kbd "<leader>gg") 'toggle-modus-themes)
 
   ;; Refile
 					; refile to targets
@@ -142,6 +140,12 @@
 					; switch project
   (evil-define-key '(normal ) org-mode-map
     (kbd "<leader>pw") 'project-switch-project)
+
+  ;; Modes
+          ; Display line numbers
+  (evil-define-key '(normal ) org-mode-map
+    (kbd "<leader>ml") 'toggle-relative-line-numbers)
+
   )
 
 (defun he/org-read-datetree-date (d)
@@ -149,17 +153,33 @@
     (list (cadr dtmp) (car dtmp) (caddr dtmp))))
 
 ;; refile 一个 entry 到 gtd.org 文件
-(defun he/org-refile-to-datetree (&optional bfn)
-  (interactive)
-  (require 'org-datetree)
-  (let* ((bfn (or bfn (find-file-noselect (expand-file-name "~/Documents/org/todo.org"))))
-	 (datetree-date (he/org-read-datetree-date (org-read-date t nil))))
-    (org-refile nil nil (list nil (buffer-file-name bfn) nil
-			      (with-current-buffer bfn
-				(save-excursion
-				  (org-datetree-find-date-create datetree-date)
-				  (point)))))))
+; (defun he/org-refile-to-datetree (&optional bfn)
+;   (interactive)
+;   (require 'org-datetree)
+;   (let* ((bfn (or bfn (find-file-noselect (expand-file-name "~/Documents/org/todo.org"))))
+; 	 (datetree-date (he/org-read-datetree-date (org-read-date t nil))))
+;     (org-refile nil nil (list nil (buffer-file-name bfn) nil
+; 			      (with-current-buffer bfn
+; 				(save-excursion
+; 				  (org-datetree-find-date-create datetree-date)
+; 				  (point)))))))
 
+;; Swicher betwent relative displaying line numbers and absolute one
+(defun toggle-relative-line-numbers ()
+  "Toggle between relative line numbers and no line numbers."
+  (interactive)
+  (if (eq display-line-numbers 'relative)
+      (progn
+        (setq display-line-numbers nil)
+        (message "Line numbers turned off."))
+    (setq display-line-numbers 'relative)
+    (message "Switched to relative line numbers."))
+  ;; 刷新行号显示
+  (if display-line-numbers
+      (display-line-numbers-mode 1)
+    (display-line-numbers-mode -1)))
+
+;; Insert Code Block
 (defun org-insert-src-block (src-code-type)
   "Insert a `SRC-CODE-TYPE' type source code block in org-mode."
   (interactive
@@ -178,11 +198,30 @@
     (previous-line 2)
     (org-edit-src-code)))
 
+;; Theme
+(defun toggle-modus-themes ()
+  ;; "Toggle between `modus-operandi` and `modus-vivendi` themes."
+  (interactive)
+  (if (eq (car custom-enabled-themes) 'modus-operandi)
+      (load-theme 'modus-vivendi)
+    (load-theme 'modus-operandi)))
+(defun my-auto-theme-adapter ()
+  ;; "Automatically switch between `modus-operandi` and `modus-vivendi` based on time.
+  ;; Switches to `modus-operandi` between 6 PM and 7 AM, and `modus-vivendi` otherwise."
+  (let ((hour (string-to-number (format-time-string "%H"))))
+    (if (or (>= hour 18) (< hour 7))
+        (load-theme 'modus-vivendi)   ;; 启用 `modus-operandi` 从 18:00 到 7:00
+      (load-theme 'modus-operandi))))   ;; 否则启用 `modus-vivendi`
+;; 定时器每隔 5 分钟检查一次时间并切换主题
+;;(run-at-time "00:00" 300 'my-auto-theme-adapter)
+;; Emacs 启动时立即检查一次时间并设置合适的主题
+(my-auto-theme-adapter)
+
 ;; org-roam
 (use-package org-roam
   :ensure t ;; 自动安装
   :custom
-  (org-roam-directory "~/Documents/org/notes/") ;; 默认笔记目录, 提前手动创建好
+  (org-roam-directory note-path) ;; 默认笔记目录, 提前手动创建好
   (org-roam-dailies-directory "daily/") ;; 默认日记目录, 上一目录的相对路径
   (org-roam-db-gc-threshold most-positive-fixnum) ;; 提高性能
   :bind (("C-c n f" . org-roam-node-find)
@@ -206,39 +245,51 @@
   (org-roam-ui-follow t) ;; 笔记节点跟随
   (org-roam-ui-update-on-save t))
 
-;; Theme
-(use-package doom-themes
+;; 像纸一样阅读 org 文档
+(use-package visual-fill-column
   :ensure t
-  :defer nil
-  :config
-  (load-theme 'doom-one-light t))
+  :after org
+  :custom
+  (visual-fill-column-width 70)   ;; 设置宽度
+  (visual-fill-column-center-text t)  ;; 文本居中
+  (setq org-cycle-separator-lines 1)
+  :hook ((org-mode . visual-fill-column-mode)
+         (org-mode . visual-line-mode)
+         (org-mode . org-indent-mode)))
 
 ;; Basic
 (setq
- ;;org-startup-indented t
- ;;org-src-tab-acts-natively nil
+ org-startup-indented t
+ org-src-tab-acts-natively t
  org-hide-emphasis-markers t
  org-fontify-done-headline t
- org-hide-leading-stars nil
+ org-hide-leading-stars t
  org-pretty-entities t
- ;;org-agenda-show-inherited-tags nili
+ org-agenda-show-inherited-tags nil
  )
 
 ;; Modern Org Mode theme
-;;(use-package org-modern
-;;  :ensure t
-;;  :init
-;;  (setopt org-modern-table-vertical 2)
-;;  (setopt org-modern-tag nil)
-;;  (setopt org-modern-todo nil)
-;;  (setopt org-modern-block-name nil)
-;;  (setopt org-modern-keyword nil)
-;;  (setopt org-modern-timestamp nil)
-;;  (setopt org-modern-block-fringe nil)
-;;  :config (global-org-modern-mode 1))
+(use-package org-modern
+  :ensure t
+  :custom
+  ;; (setq org-modern-table-vertical 2)
+  ;; (setq org-modern-tag nil)
+  (org-modern-star 'replace)
+  (org-modern-checkbox
+  '((?X . "󰄵")
+    (?- . "󰄗")
+    (?\s . "󰄱")))
+  ;;(org-modern-todo nil)
+  ;; (setq org-modern-block-name nil)
+  ;; (setq org-modern-keyword nil)
+  ;; (setq org-modern-timestamp nil)
+  ;; (setq org-modern-block-fringe nil)
+  :config (global-org-modern-mode 1))
 
 (setq custom-file "~/.emacs.d/lisp/custom.el")
 (load custom-file)
+
+(find-file "~/Documents/allinone/Org/gtd.org")
 
 (provide 'init-org)
 ;;; init-org.el ends here
