@@ -2,7 +2,7 @@
 ;;; Commentary:
 ;;; Code:
 
-; Appoint path to org dir and gtd file
+					; Appoint path to org dir and gtd file
 (setq org-path "~/Documents/allinone/Org/")
 (setq gtd-path (concat org-path "gtd.org"))
 (setq note-path (concat org-path "notes"))
@@ -94,8 +94,8 @@
 					; open capture
   (evil-define-key '(normal ) org-mode-map
     (kbd "<leader>gp") 'org-capture)
-          ; Theme
-          ; switch one
+					; Theme
+					; switch one
   (evil-define-key '(normal ) org-mode-map
     (kbd "<leader>gg") 'toggle-modus-themes)
 
@@ -142,7 +142,7 @@
     (kbd "<leader>pw") 'project-switch-project)
 
   ;; Modes
-          ; Display line numbers
+					; Display line numbers
   (evil-define-key '(normal ) org-mode-map
     (kbd "<leader>ml") 'toggle-relative-line-numbers)
 
@@ -153,16 +153,16 @@
     (list (cadr dtmp) (car dtmp) (caddr dtmp))))
 
 ;; refile 一个 entry 到 gtd.org 文件
-; (defun he/org-refile-to-datetree (&optional bfn)
-;   (interactive)
-;   (require 'org-datetree)
-;   (let* ((bfn (or bfn (find-file-noselect (expand-file-name "~/Documents/org/todo.org"))))
-; 	 (datetree-date (he/org-read-datetree-date (org-read-date t nil))))
-;     (org-refile nil nil (list nil (buffer-file-name bfn) nil
-; 			      (with-current-buffer bfn
-; 				(save-excursion
-; 				  (org-datetree-find-date-create datetree-date)
-; 				  (point)))))))
+					; (defun he/org-refile-to-datetree (&optional bfn)
+					;   (interactive)
+					;   (require 'org-datetree)
+					;   (let* ((bfn (or bfn (find-file-noselect (expand-file-name "~/Documents/org/todo.org"))))
+					; 	 (datetree-date (he/org-read-datetree-date (org-read-date t nil))))
+					;     (org-refile nil nil (list nil (buffer-file-name bfn) nil
+					; 			      (with-current-buffer bfn
+					; 				(save-excursion
+					; 				  (org-datetree-find-date-create datetree-date)
+					; 				  (point)))))))
 
 ;; Swicher betwent relative displaying line numbers and absolute one
 (defun toggle-relative-line-numbers ()
@@ -276,9 +276,9 @@
   ;; (setq org-modern-tag nil)
   (org-modern-star 'replace)
   (org-modern-checkbox
-  '((?X . "󰄵")
-    (?- . "󰄗")
-    (?\s . "󰄱")))
+   '((?X . "󰄵")
+     (?- . "󰄗")
+     (?\s . "󰄱")))
   ;;(org-modern-todo nil)
   ;; (setq org-modern-block-name nil)
   ;; (setq org-modern-keyword nil)
