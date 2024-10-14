@@ -12,7 +12,7 @@
   :init (setq evil-want-C-i-jump nil)
   :config
   ;; General
-  (setq org-agenda-files '(gtd-path)
+  (setq org-agenda-files (list gtd-path)
 	org-agenda-time-grid (quote ((daily today require-timed)
                                      (300
                                       600
