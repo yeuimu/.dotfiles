@@ -30,19 +30,19 @@
 						  ((org-agenda-overriding-header "Unscheduled TODOs"))))))
 	org-capture-templates '(
 				("i" "inbox" entry (file+headline gtd-path "Inbox")
-				 "** %^{headline} %^g \n\n%? \n\n%U" :empty-lines 1)
+				 "** %^{headline} \n:PROPERTIES:\n:CREATED: %U\n:END:\n \n %?" :empty-lines 1)
 				("t" "tasks" entry (file+headline gtd-path "Tasks")
-				 "** %^{headline} %^g \n\n%? \n\n%U" :empty-lines 1)
+				 "** %^{headline} \n:PROPERTIES:\n:CREATED: %U\n:END:\n \n %?" :empty-lines 1)
 				("p" "projects" entry (file+headline gtd-path "Projects")
-				 "** %^{headline} %^g \n\n%? \n\n%U" :empty-lines 1)
+				 "** %^{headline} \n:PROPERTIES:\n:CREATED: %U\n:END:\n \n %?" :empty-lines 1)
 				("v" "review" entry (file+headline gtd-path "Review")
-				 "** %^{headline} %^g \n\n%? \n\n%U" :empty-lines 1)
+				 "** %^{headline} \n:PROPERTIES:\n:CREATED: %U\n:END:\n \n %?" :empty-lines 1)
 				("w" "wait" entry (file+headline gtd-path "Waiting")
-				 "** %^{headline} %^g \n\n%? \n\n%U" :empty-lines 1)
+				 "** %^{headline} \n:PROPERTIES:\n:CREATED: %U\n:END:\n \n %?" :empty-lines 1)
 				("r" "references" entry (file+headline gtd-path "References")
-				 "** %^{headline} %^g \n\n%? \n\n%U" :empty-lines 1)
+				 "** %^{headline} \n:PROPERTIES:\n:CREATED: %U\n:END:\n \n %?" :empty-lines 1)
 				("m" "maybe" entry (file+headline gtd-path "Maybe")
-				 "** %^{headline} %^g \n\n%? \n\n%U" :empty-lines 1)
+				 "** %^{headline} \n:PROPERTIES:\n:CREATED: %U\n:END:\n \n %?" :empty-lines 1)
 				)
 	org-refile-targets '(
                              ( gtd-path :maxlevel . 2)
@@ -52,7 +52,9 @@
 	org-refile-allow-creating-parent-nodes 'confirm
 	org-todo-keywords '((sequence "TODO(t/!)" "DOING(i/!)" "SCHEDLED(s/!)" "|" "DONE(d@/!)" "CANCEL(c@/!)"))
 	org-todo-keyword-faces '(
-				 ("DOING" . (:foreground "#eec78e" :weight bold))
+				 ("TODO" . (:foreground "#e84545" :weight bold))
+				 ("DOING" . (:foreground "#1fab89" :weight bold))
+         ("DONE" . (:foreground "#4C566A" :weight bold))
 				 ("CANCEL" . (:foreground "#4C566A" :weight bold))
 				 ("SCHEDLED" . (:foreground "#6495ED" :weight bold)))
 	org-enforce-todo-dependencies t
@@ -198,6 +200,12 @@
     (previous-line 2)
     (org-edit-src-code)))
 
+(defun my/org-add-created-timestamp ()
+  "在 headline 下自动添加创建时间"
+  (org-set-property "CREATED" (format-time-string "[%Y-%m-%d %a %H:%M]")))
+
+(add-hook 'org-insert-heading-hook 'my/org-add-created-timestamp)
+
 ;; Theme
 (defun toggle-modus-themes ()
   ;; "Toggle between `modus-operandi` and `modus-vivendi` themes."
@@ -250,12 +258,13 @@
   :ensure t
   :after org
   :custom
-  (visual-fill-column-width 70)   ;; 设置宽度
+  (visual-fill-column-width 100)   ;; 设置宽度
   (visual-fill-column-center-text t)  ;; 文本居中
   (setq org-cycle-separator-lines 1)
   :hook ((org-mode . visual-fill-column-mode)
          (org-mode . visual-line-mode)
-         (org-mode . org-indent-mode)))
+         (org-mode . org-indent-mode)
+         (org-mode . word-wrap-whitespace-mode)))
 
 ;; Basic
 (setq
@@ -273,17 +282,21 @@
   :ensure t
   :custom
   ;; (setq org-modern-table-vertical 2)
-  ;; (setq org-modern-tag nil)
+  (org-modern-tag nil)
   (org-modern-star 'replace)
   (org-modern-checkbox
    '((?X . "󰄵")
      (?- . "󰄗")
      (?\s . "󰄱")))
-  ;;(org-modern-todo nil)
-  ;; (setq org-modern-block-name nil)
-  ;; (setq org-modern-keyword nil)
-  ;; (setq org-modern-timestamp nil)
-  ;; (setq org-modern-block-fringe nil)
+  (org-modern-todo nil)
+  (org-modern-priority
+    (quote ((?A . "󰯭")
+            (?B . "󰯰")
+            (?C . "󰯳"))))
+  ;; (org-modern-block-name nil)
+  ;; (org-modern-keyword nil)
+  ;; (org-modern-timestamp nil)
+  ;; (org-modern-block-fringe nil)
   :config (global-org-modern-mode 1))
 
 (setq custom-file "~/.emacs.d/lisp/custom.el")
