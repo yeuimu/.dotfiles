@@ -299,6 +299,12 @@
   ;; (org-modern-block-fringe nil)
   :config (global-org-modern-mode 1))
 
+;; ripgrep
+(use-package rg
+  :ensure t
+  :config
+  (rg-enable-default-bindings))
+
 (setq custom-file "~/.emacs.d/lisp/custom.el")
 (load custom-file)
 
