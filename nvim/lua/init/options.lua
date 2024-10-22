@@ -10,7 +10,6 @@ vim.opt.relativenumber = true
 vim.opt.cursorline = true
 -- 当文件被外部程序修改时，自动加载
 vim.opt.autoread = true
-vim.opt.autoread = true
 -- 折行
 vim.opt.wrap = true
 
